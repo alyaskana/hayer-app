@@ -3,9 +3,8 @@
     "name": "hayer-app",
     "slug": "hayer-app",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "scheme": "hayer",
+    "assetBundlePatterns": ["**/*"]
   },
   "name": "hayer-app"
 }
