@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { FeedScreen, ProfileScreen } from "../screens";
+import { FeedScreen, ProfileScreen, PostScreen } from "../screens";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -45,11 +45,16 @@ const FeedStack = createStackNavigator();
 
 function FeedNavigator() {
   return (
-    <FeedStack.Navigator>
+    <FeedStack.Navigator screenOptions={{ headerShown: true }}>
       <FeedStack.Screen
-        name="FeedScreen"
+        name="Feed"
         component={FeedScreen}
-        options={{ headerTitle: "Лента" }}
+        options={{ title: "Лента" }}
+      />
+      <FeedStack.Screen
+        name="Post"
+        component={PostScreen}
+        options={{ title: "Объявление" }}
       />
     </FeedStack.Navigator>
   );
@@ -59,7 +64,7 @@ const ProfileStack = createStackNavigator();
 
 function ProfileNavigator() {
   return (
-    <ProfileStack.Navigator>
+    <ProfileStack.Navigator screenOptions={{ headerShown: true }}>
       <ProfileStack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
