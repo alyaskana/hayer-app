@@ -2,7 +2,7 @@ import { PostsMock } from "./posts";
 
 export const profileMock = {
   course: 3,
-  social_network: "https://www.instagram.com",
+  social_network: "https://instagram.com",
   first_name: "Саша",
   last_name: "Барабанова",
   position: "Дизайн и программирование",

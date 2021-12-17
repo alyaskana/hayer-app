@@ -1,4 +1,11 @@
-import { Text, View, ScrollView, Image, Linking } from "react-native";
+import {
+  Text,
+  View,
+  ScrollView,
+  Image,
+  Linking,
+  TouchableHighlight,
+} from "react-native";
 import { profileMock } from "../mocks/profile";
 import { Tag, Post } from "../components/feeds";
 
@@ -31,10 +38,66 @@ export const ProfileScreen = () => {
           paddingTop: 18,
         }}
       >
-        <Image
-          source={profileMock.avatar}
-          style={{ borderRadius: 1000, alignSelf: "center" }}
-        />
+        <View style={{ position: "relative" }}>
+          <Image
+            source={profileMock.avatar}
+            style={{ borderRadius: 1000, alignSelf: "center" }}
+          />
+          <View
+            style={{
+              position: "absolute",
+              right: 0,
+              bottom: 0,
+              width: 42,
+              height: 42,
+              backgroundColor: "#1C63EC",
+              borderRadius: 10000,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <TouchableHighlight
+              onPress={() => Linking.openURL(profileMock.social_network)}
+            >
+              <Image
+                source={require("../assets/images/instagram.png")}
+                style={{ width: 22, height: 22 }}
+                onPress={() => Linking.openURL(profileMock.social_network)}
+              />
+            </TouchableHighlight>
+          </View>
+          <View
+            style={{
+              position: "absolute",
+              left: 0,
+              bottom: 0,
+              width: 42,
+              height: 42,
+              backgroundColor: "#1C63EC",
+              borderRadius: 10000,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{ color: "#FFFFFF", textAlign: "center", fontSize: 24 }}
+            >
+              {profileMock.course}
+            </Text>
+            <Text
+              style={{
+                color: "#FFFFFF",
+                textAlign: "center",
+                fontSize: 10,
+                marginTop: -8,
+              }}
+            >
+              курс
+            </Text>
+          </View>
+        </View>
 
         <Text
           style={{
