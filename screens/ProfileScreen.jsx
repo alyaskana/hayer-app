@@ -9,7 +9,7 @@ import {
 import { profileMock } from "../mocks/profile";
 import { Tag, Post } from "../components/feeds";
 
-export const ProfileScreen = () => {
+export const ProfileScreen = ({ navigation }) => {
   return (
     <ScrollView style={{ paddingHorizontal: 12 }}>
       <Image
@@ -116,7 +116,7 @@ export const ProfileScreen = () => {
         </Text>
         <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
           {profileMock.tags.map((tag) => (
-            <Tag text={tag.name} />
+            <Tag text={tag.name} key={tag.id} />
           ))}
         </View>
         <Text
@@ -148,7 +148,15 @@ export const ProfileScreen = () => {
       </View>
       <View style={{ marginTop: 8 }}>
         {profileMock.posts.map((post) => (
-          <Post {...post} />
+          <Post
+            key={post.id}
+            onPress={() =>
+              navigation.push("Post", {
+                id: post.id,
+              })
+            }
+            {...post}
+          />
         ))}
       </View>
     </ScrollView>

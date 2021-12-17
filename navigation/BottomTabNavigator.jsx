@@ -70,6 +70,11 @@ function ProfileNavigator() {
         component={ProfileScreen}
         options={{ headerTitle: "Профиль" }}
       />
+      <FeedStack.Screen
+        name="Post"
+        component={PostScreen}
+        options={{ title: "Объявление" }}
+      />
     </ProfileStack.Navigator>
   );
 }
