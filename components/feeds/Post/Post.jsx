@@ -122,7 +122,7 @@ export const Post = ({
           >
             <Image
               style={{ width: 32, height: 32, marginRight: 8 }}
-              source={require("../../../assets/images/userpic.png")}
+              source={require("../../../assets/images/avatar.jpg")}
             />
             <Text>{user.name}</Text>
           </View>

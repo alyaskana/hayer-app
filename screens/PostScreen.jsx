@@ -24,7 +24,6 @@ export const PostScreen = ({
       >
         <Text
           style={{
-            // backgroundColor: "#FF0000",
             fontSize: 93,
             lineHeight: 93,
           }}
