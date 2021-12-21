@@ -70,7 +70,7 @@ export const Post = ({
             }}
           >
             <Image
-              style={{ marginRight: 4, width: 20, height: 20, width: 20 }}
+              style={{ marginRight: 4, width: 20, height: 20 }}
               source={require("../../../assets/images/response.png")}
             />
             <Text style={{ fontSize: 18 }}>13</Text>
