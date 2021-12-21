@@ -14,8 +14,9 @@ const styles = StyleSheet.create({
     paddingTop: 4,
     paddingBottom: 4,
     paddingLeft: 4,
-    paddingRight: 18,
+    paddingRight: 16,
     display: "flex",
+    marginLeft: 4,
     flexDirection: "row",
     color: "#8B8C8D",
   },
@@ -45,9 +46,20 @@ export const Filters = () => {
         width: "100%",
         display: "flex",
         flexDirection: "row",
-        justifyContent: "space-between",
       }}
     >
+      <View
+        style={{
+          padding: 4,
+          backgroundColor: "#fff",
+          borderRadius: 100,
+        }}
+      >
+        <Image
+          style={{ height: 32, width: 32 }}
+          source={require("../../../assets/images/user.png")}
+        ></Image>
+      </View>
       <Filter
         onPress={() => alert("Pressed!")}
         iconPath={require("../../../assets/images/dollar.png")}
@@ -61,7 +73,7 @@ export const Filters = () => {
       <Filter
         onPress={() => alert("Pressed!")}
         iconPath={require("../../../assets/images/pin.png")}
-        text="Отдых"
+        text="Ивенты"
       />
     </View>
   );
