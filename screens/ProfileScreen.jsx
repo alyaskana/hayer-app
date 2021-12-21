@@ -18,9 +18,9 @@ export const ProfileScreen = ({ navigation }) => {
           borderRadius: 1000,
           position: "absolute",
           top: 12,
-          right: 12,
-          width: 42,
-          height: 42,
+          right: 0,
+          width: 59,
+          height: 40,
         }}
       />
       <View
@@ -67,7 +67,7 @@ export const ProfileScreen = ({ navigation }) => {
               />
             </TouchableHighlight>
           </View>
-          <View
+          {/* <View
             style={{
               position: "absolute",
               left: 0,
@@ -96,24 +96,53 @@ export const ProfileScreen = ({ navigation }) => {
             >
               курс
             </Text>
-          </View>
+          </View> */}
         </View>
 
         <Text
           style={{
             color: "#2F2F2F",
             fontSize: 32,
-            marginTop: 16,
+            marginTop: 24,
           }}
         >{`${profileMock.first_name} ${profileMock.last_name}`}</Text>
-        <Text
+        <View
           style={{
-            color: "#C9CACB",
-            fontSize: 14,
+            display: "flex",
+            alignItems: "center",
+            flexDirection: "row",
+            marginTop: 4,
           }}
         >
-          {profileMock.position}
-        </Text>
+          <View
+            style={{
+              height: 20,
+              width: 20,
+              borderRadius: 100,
+              backgroundColor: "#C9CACB",
+              marginRight: 4,
+            }}
+          >
+            <Text
+              style={{
+                color: "#FFFFFF",
+                textAlign: "center",
+                fontSize: 13,
+                lineHeight: 19,
+              }}
+            >
+              {profileMock.course}
+            </Text>
+          </View>
+          <Text
+            style={{
+              color: "#C9CACB",
+              fontSize: 14,
+            }}
+          >
+            {profileMock.position}
+          </Text>
+        </View>
         <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
           {profileMock.tags.map((tag) => (
             <Tag text={tag.name} key={tag.id} />
@@ -122,29 +151,34 @@ export const ProfileScreen = ({ navigation }) => {
         <Text
           style={{
             color: "#2F2F2F",
-            fontSize: 14,
-            marginTop: 16,
+            fontSize: 15,
+            marginTop: 12,
           }}
         >
           {profileMock.bio}
         </Text>
         <View
           style={{
-            borderBottomColor: "rgba(0,0,0,0.06)",
-            borderBottomWidth: 1,
-            marginVertical: 16,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: 24,
           }}
-        />
-        <Text
-          style={{
-            color: "#1C63EC",
-            textTransform: "uppercase",
-            fontSize: 14,
-          }}
-          onPress={() => Linking.openURL(profileMock.site)}
         >
-          {profileMock.site}
-        </Text>
+          <Image
+            style={{ width: 32, height: 32, marginRight: 8 }}
+            source={require("../assets/images/link.png")}
+          />
+          <Text
+            style={{
+              color: "#1C63EC",
+              fontSize: 14,
+            }}
+            onPress={() => Linking.openURL(profileMock.site)}
+          >
+            {profileMock.site}
+          </Text>
+        </View>
       </View>
       <View style={{ marginTop: 8 }}>
         {profileMock.posts.map((post) => (
