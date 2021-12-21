@@ -26,7 +26,7 @@ export const Post = ({
 }) => {
   const formattedDescription = isFullDescription
     ? description
-    : truncateString(description, 100);
+    : truncateString(description, 155);
   return (
     <TouchableHighlight
       activeOpacity={0.6}
@@ -40,10 +40,7 @@ export const Post = ({
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingBottom: 12,
-            borderBottomColor: "#F5F5F5",
-            borderBottomWidth: 1,
-            marginBottom: 12,
+            marginBottom: 16,
           }}
         >
           <View style={{ display: "flex", flexDirection: "row" }}>
@@ -60,8 +57,23 @@ export const Post = ({
               source={require("../../../assets/images/pin.png")}
             />
           </View>
-          <View style={{ display: "flex", flexDirection: "row" }}>
-            <Text style={{ color: "#C9CACB" }}>4 часа назад</Text>
+          <View
+            style={{
+              height: 32,
+              paddingLeft: 11,
+              paddingRight: 11,
+              backgroundColor: "#F0F1F2",
+              borderRadius: 100,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              style={{ marginRight: 4, width: 20, height: 20, width: 20 }}
+              source={require("../../../assets/images/response.png")}
+            />
+            <Text style={{ fontSize: 18 }}>13</Text>
           </View>
         </View>
         <Text
@@ -73,7 +85,7 @@ export const Post = ({
           {title}
         </Text>
         <View
-          style={{ display: "flex", flexDirection: "row", marginBottom: 24 }}
+          style={{ display: "flex", flexDirection: "row", marginBottom: 20 }}
         >
           {tags.map((tag) => (
             <Tag text={tag.name} onPress={() => alert("Pressed!")} />
@@ -81,16 +93,13 @@ export const Post = ({
         </View>
         <View
           style={{
-            paddingBottom: 12,
-            borderBottomColor: "#F5F5F5",
-            borderBottomWidth: 1,
-            marginBottom: 12,
+            marginBottom: 24,
           }}
         >
           <Text
             style={{
-              fontSize: 13,
-              color: "#8B8C8D",
+              fontSize: 15,
+              color: "#2f2f2f",
             }}
           >
             {formattedDescription}
@@ -104,11 +113,24 @@ export const Post = ({
             alignItems: "center",
           }}
         >
-          <Text>{user.name}</Text>
-          <Image
-            style={{ width: 32, height: 32 }}
-            source={require("../../../assets/images/user.png")}
-          />
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+            }}
+          >
+            <Image
+              style={{ width: 32, height: 32, marginRight: 8 }}
+              source={require("../../../assets/images/userpic.png")}
+            />
+            <Text>{user.name}</Text>
+          </View>
+          <View>
+            <View style={{ display: "flex", flexDirection: "row" }}>
+              <Text style={{ color: "#C9CACB" }}>4 часа назад</Text>
+            </View>
+          </View>
         </View>
       </View>
     </TouchableHighlight>
