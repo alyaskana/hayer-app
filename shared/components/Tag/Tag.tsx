@@ -17,7 +17,6 @@ export const Tag = ({ onPress, text }) => {
           marginRight: 8,
           display: "flex",
           flexDirection: "row",
-          color: "#8B8C8D",
         }}
       >
         <Text style={{ color: "#8B8C8D" }}>{text}</Text>

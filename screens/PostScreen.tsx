@@ -1,16 +1,17 @@
 import { Text, View, Image } from "react-native";
-import { Post } from "../components/feeds";
-import { PostsMock } from "../mocks/posts";
+
+import { PostCard } from "shared/components";
+import { PostsMock } from "mocks/posts";
 
 export const PostScreen = ({
   route: {
     params: { id },
   },
 }) => {
-  post = PostsMock.find((post) => post.id == id);
+  const post = PostsMock.find((post) => post.id == id);
   return (
     <View style={{ padding: 8 }}>
-      <Post isFullDescription {...post} />
+      <PostCard isFullDescription {...post} onPress={() => alert("press")} />
       <View
         style={{
           backgroundColor: "#fff",

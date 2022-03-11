@@ -2,7 +2,7 @@ import "react-native-gesture-handler";
 
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { Navigation } from "./navigation";
+import { Navigation } from "shared/components";
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
 
 export default function App() {

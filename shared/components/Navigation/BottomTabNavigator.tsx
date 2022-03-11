@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import { Text, View } from "react-native";
-import { FeedScreen, ProfileScreen, PostScreen } from "../screens";
+import { FeedScreen, ProfileScreen, PostScreen } from "screens";
 
 const BottomTab = createBottomTabNavigator();
 

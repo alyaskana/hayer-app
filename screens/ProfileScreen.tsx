@@ -6,8 +6,9 @@ import {
   Linking,
   TouchableHighlight,
 } from "react-native";
-import { profileMock } from "../mocks/profile";
-import { Tag, Post } from "../components/feeds";
+
+import { profileMock } from "mocks/profile";
+import { Tag, PostCard } from "shared/components";
 
 export const ProfileScreen = ({ navigation }) => {
   return (
@@ -63,7 +64,6 @@ export const ProfileScreen = ({ navigation }) => {
               <Image
                 source={require("../assets/images/instagram.png")}
                 style={{ width: 22, height: 22 }}
-                onPress={() => Linking.openURL(profileMock.social_network)}
               />
             </TouchableHighlight>
           </View>
@@ -145,7 +145,7 @@ export const ProfileScreen = ({ navigation }) => {
         </View>
         <View style={{ display: "flex", flexDirection: "row", marginTop: 16 }}>
           {profileMock.tags.map((tag) => (
-            <Tag text={tag.name} key={tag.id} />
+            <Tag text={tag.name} key={tag.id} onPress={() => alert("press")} />
           ))}
         </View>
         <Text
@@ -182,7 +182,7 @@ export const ProfileScreen = ({ navigation }) => {
       </View>
       <View style={{ marginTop: 8 }}>
         {profileMock.posts.map((post) => (
-          <Post
+          <PostCard
             key={post.id}
             onPress={() =>
               navigation.push("Post", {

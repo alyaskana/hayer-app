@@ -5,8 +5,9 @@ import {
   TouchableHighlight,
   StyleSheet,
 } from "react-native";
+import { FC } from "react";
 
-import { Tag } from "../Tag/Tag";
+import { Tag } from "shared/components/Tag/Tag";
 
 const truncateString = (str, num) => {
   if (str.length > num) {
@@ -16,7 +17,18 @@ const truncateString = (str, num) => {
   }
 };
 
-export const Post = ({
+type PostCardProps = {
+  title: string;
+  description: string;
+  user: any;
+  tags: any;
+  onPress: () => void;
+  isFullDescription?: boolean;
+  id?: number;
+  navigation?: any;
+};
+
+export const PostCard: FC<PostCardProps> = ({
   title,
   description,
   user,

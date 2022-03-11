@@ -1,17 +1,18 @@
 import {
-  Text,
   View,
   FlatList,
   StyleSheet,
   StatusBar,
   SafeAreaView,
 } from "react-native";
-import { Filters, Post } from "../components/feeds";
-import { PostsMock } from "../mocks/posts";
+
+import { PostsFilters } from "features/feed";
+import { PostCard } from "shared/components";
+import { PostsMock } from "mocks/posts";
 
 export const FeedScreen = ({ navigation }) => {
   const renderItem = ({ item }) => (
-    <Post
+    <PostCard
       key={item.id}
       id={item.id}
       title={item.title}
@@ -38,7 +39,7 @@ export const FeedScreen = ({ navigation }) => {
         paddingRight: 8,
       }}
     >
-      <Filters />
+      <PostsFilters />
       <SafeAreaView style={styles.container}>
         <FlatList
           style={styles.list}
