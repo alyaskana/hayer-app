@@ -58,15 +58,15 @@ export const PostCard: FC<PostCardProps> = ({
           <View style={{ display: "flex", flexDirection: "row" }}>
             <Image
               style={{ marginRight: 8, width: 32, height: 32 }}
-              source={require("../../../assets/images/dollar.png")}
+              source={require("~/assets/images/work_active_icon.png")}
             />
             <Image
               style={{ marginRight: 8, width: 32, height: 32 }}
-              source={require("../../../assets/images/study.png")}
+              source={require("assets/images/study_active_icon.png")}
             />
             <Image
               style={{ marginRight: 8, width: 32, height: 32 }}
-              source={require("../../../assets/images/pin.png")}
+              source={require("assets/images/event_active_icon.png")}
             />
           </View>
           <View

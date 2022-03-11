@@ -1,4 +1,5 @@
 import { View, Image } from "react-native";
+import { Box } from "shared/components";
 
 import { Filter } from "./Filter/Filter";
 
@@ -11,33 +12,27 @@ export const Filters = () => {
         flexDirection: "row",
       }}
     >
-      <View
-        style={{
-          padding: 4,
-          backgroundColor: "#fff",
-          borderRadius: 100,
-        }}
-      >
-        <Image
-          style={{ height: 32, width: 32 }}
-          source={require("~/assets/images/user.png")}
-        ></Image>
+      <View style={{ marginRight: 4, flex: 1 }}>
+        <Filter
+          onPress={() => alert("Pressed!")}
+          iconPath={require("~/assets/images/work_active_icon.png")}
+          text="Работа"
+        />
       </View>
-      <Filter
-        onPress={() => alert("Pressed!")}
-        iconPath={require("~/assets/images/dollar.png")}
-        text="Работа"
-      />
-      <Filter
-        onPress={() => alert("Pressed!")}
-        iconPath={require("~/assets/images/study.png")}
-        text="Учеба"
-      />
-      <Filter
-        onPress={() => alert("Pressed!")}
-        iconPath={require("~/assets/images/pin.png")}
-        text="Ивенты"
-      />
+      <View style={{ marginRight: 4, flex: 1 }}>
+        <Filter
+          onPress={() => alert("Pressed!")}
+          iconPath={require("~/assets/images/study_active_icon.png")}
+          text="Учеба"
+        />
+      </View>
+      <View style={{ flex: 1 }}>
+        <Filter
+          onPress={() => alert("Pressed!")}
+          iconPath={require("~/assets/images/event_active_icon.png")}
+          text="Ивенты"
+        />
+      </View>
     </View>
   );
 };

@@ -1,41 +1,34 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-  Image,
-} from "react-native";
+import { Colors } from "constants/Colors";
+import { StyleSheet, Text, TouchableOpacity, View, Image } from "react-native";
 
 export const Filter = ({ onPress, iconPath, text }) => {
   return (
-    <TouchableHighlight
-      activeOpacity={0.6}
-      underlayColor="#DDDDDD"
-      onPress={onPress}
-    >
+    <TouchableOpacity activeOpacity={0.6} onPress={onPress}>
       <View style={styles.button}>
-        <Image
-          style={{ marginRight: 8, width: 32, height: 32 }}
-          source={iconPath}
-        />
-        <Text style={{ color: "#8B8C8D" }}>{text}</Text>
+        <Image style={styles.icon} source={iconPath} />
+        <Text style={styles.text}>{text}</Text>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 20,
-    paddingTop: 4,
-    paddingBottom: 4,
-    paddingLeft: 4,
-    paddingRight: 16,
+    // width: 117,
     display: "flex",
-    marginLeft: 4,
     flexDirection: "row",
-    color: "#8B8C8D",
+    alignItems: "center",
+    backgroundColor: Colors.Main.White,
+    borderRadius: 20,
+    padding: 4,
+    color: Colors.Main.Gray_2,
+  },
+  text: {
+    color: Colors.Main.Gray_2,
+  },
+  icon: {
+    marginRight: 8,
+    width: 32,
+    height: 32,
   },
 });
