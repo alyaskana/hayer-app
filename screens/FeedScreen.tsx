@@ -5,12 +5,16 @@ import {
   StatusBar,
   SafeAreaView,
 } from "react-native";
+import { useState } from "react";
 
 import { PostsFilters } from "features/feed";
 import { PostCard } from "shared/components";
 import { PostsMock } from "mocks/posts";
 
 export const FeedScreen = ({ navigation }) => {
+  const [activeFilters, setActiveFilters] = useState([]);
+  console.log("===========", activeFilters);
+
   const renderItem = ({ item }) => (
     <PostCard
       key={item.id}
@@ -39,7 +43,10 @@ export const FeedScreen = ({ navigation }) => {
         paddingRight: 8,
       }}
     >
-      <PostsFilters />
+      <PostsFilters
+        activeFilters={activeFilters}
+        setActiveFilters={setActiveFilters}
+      />
       <SafeAreaView style={styles.container}>
         <FlatList
           style={styles.list}
