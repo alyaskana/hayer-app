@@ -1,6 +1,4 @@
 import { View, Image } from "react-native";
-import { Box } from "shared/components";
-
 import { Filter } from "./Filter/Filter";
 
 export const Filters = () => {
