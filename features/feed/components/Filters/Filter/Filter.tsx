@@ -13,7 +13,7 @@ type FilterProps = {
   onPress: Dispatch<SetStateAction<string[]>>;
   iconPath: ImageSourcePropType;
   text: string;
-  type: "work" | "study" | "events";
+  type: "work" | "study" | "event";
   isActive: boolean;
 };
 

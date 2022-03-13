@@ -28,8 +28,8 @@ export const Filters: FC<FitersProps> = ({
           onPress={setActiveFilters}
           iconPath={
             isActive("work")
-              ? require("~/assets/images/work_active_icon.png")
-              : require("~/assets/images/work_unactive_icon.png")
+              ? require("~/assets/images/work_active.png")
+              : require("~/assets/images/work_unactive.png")
           }
           text="Работа"
           type="work"
@@ -41,8 +41,8 @@ export const Filters: FC<FitersProps> = ({
           onPress={setActiveFilters}
           iconPath={
             isActive("study")
-              ? require("~/assets/images/study_active_icon.png")
-              : require("~/assets/images/study_unactive_icon.png")
+              ? require("~/assets/images/study_active.png")
+              : require("~/assets/images/study_unactive.png")
           }
           text="Учеба"
           type="study"
@@ -53,13 +53,13 @@ export const Filters: FC<FitersProps> = ({
         <Filter
           onPress={setActiveFilters}
           iconPath={
-            isActive("events")
-              ? require("~/assets/images/event_active_icon.png")
-              : require("~/assets/images/event_unactive_icon.png")
+            isActive("event")
+              ? require("~/assets/images/event_active.png")
+              : require("~/assets/images/event_unactive.png")
           }
           text="Ивенты"
-          type="events"
-          isActive={isActive("events")}
+          type="event"
+          isActive={isActive("event")}
         />
       </View>
     </View>
