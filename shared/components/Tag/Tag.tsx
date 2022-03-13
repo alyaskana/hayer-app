@@ -1,26 +1,30 @@
 import { Text, View, TouchableHighlight } from "react-native";
+import { FC } from "react";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Colors } from "constants/Colors";
 
-export const Tag = ({ onPress, text }) => {
+type TagProps = {
+  style?: Object;
+  onPress?: () => void;
+  text: string;
+};
+
+export const Tag: FC<TagProps> = ({ onPress, text, style }) => {
   return (
-    <TouchableHighlight
-      activeOpacity={0.6}
-      underlayColor="#DDDDDD"
-      onPress={onPress}
-    >
+    <TouchableOpacity style={style} activeOpacity={0.6} onPress={onPress}>
       <View
         style={{
           alignItems: "center",
-          backgroundColor: "#F2F2F2",
+          backgroundColor: Colors.Main.White_gray,
           borderRadius: 20,
           paddingVertical: 8,
           paddingHorizontal: 16,
-          marginRight: 8,
           display: "flex",
           flexDirection: "row",
         }}
       >
-        <Text style={{ color: "#8B8C8D" }}>{text}</Text>
+        <Text style={{ color: Colors.Main.Gray_2 }}>{text}</Text>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };

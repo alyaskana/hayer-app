@@ -12,18 +12,26 @@ import { PostCard } from "shared/components";
 import { PostsMock } from "mocks/posts";
 
 export const FeedScreen = ({ navigation }) => {
-  const [activeFilters, setActiveFilters] = useState([]);
+  const [activeFilters, setActiveFilters] = useState([
+    "study",
+    "work",
+    "event",
+  ]);
   console.log("===========", activeFilters);
 
   const renderItem = ({ item }) => (
     <PostCard
       key={item.id}
-      id={item.id}
       title={item.title}
+      type={item.type}
       description={item.description}
       user={item.user}
       tags={item.tags}
+      format={item.format}
       navigation={navigation}
+      deadline={item.deadline}
+      responsesCount={item.responses.length}
+      style={{ marginBottom: 8 }}
       onPress={() =>
         navigation.push("Post", {
           id: item.id,
@@ -38,7 +46,7 @@ export const FeedScreen = ({ navigation }) => {
         flex: 1,
         alignItems: "center",
         justifyContent: "flex-start",
-        marginTop: 20,
+        marginTop: 8,
         paddingLeft: 8,
         paddingRight: 8,
       }}
@@ -62,7 +70,7 @@ export const FeedScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: StatusBar.currentHeight + 20 || 20,
+    marginTop: StatusBar.currentHeight + 8 || 8,
     width: "100%",
   },
   list: {
