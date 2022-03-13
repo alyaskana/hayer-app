@@ -1,6 +1,7 @@
 import { View } from "react-native";
 import { Dispatch, FC, SetStateAction } from "react";
 import { Filter } from "./Filter/Filter";
+import styled from "styled-components/native";
 
 type FitersProps = {
   activeFilters: string[];
@@ -16,13 +17,7 @@ export const Filters: FC<FitersProps> = ({
   };
 
   return (
-    <View
-      style={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-      }}
-    >
+    <FilterGroup>
       <View style={{ marginRight: 4, flex: 1 }}>
         <Filter
           onPress={setActiveFilters}
@@ -62,6 +57,12 @@ export const Filters: FC<FitersProps> = ({
           isActive={isActive("event")}
         />
       </View>
-    </View>
+    </FilterGroup>
   );
 };
+
+const FilterGroup = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+`;

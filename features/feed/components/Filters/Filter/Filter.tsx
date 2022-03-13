@@ -1,12 +1,7 @@
 import { Colors } from "constants/Colors";
 import { Dispatch, FC, SetStateAction } from "react";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Image,
-  ImageSourcePropType,
-} from "react-native";
+import styled from "styled-components/native";
+import { TouchableOpacity, ImageSourcePropType } from "react-native";
 import { Caption_1 } from "shared/ui/Typography";
 
 type FilterProps = {
@@ -34,27 +29,26 @@ export const Filter: FC<FilterProps> = ({
 
   return (
     <TouchableOpacity activeOpacity={0.6} onPress={handleFilterPress}>
-      <View style={styles.button}>
-        <Image style={styles.icon} source={iconPath} />
+      <Button>
+        <Icon source={iconPath} />
         <Caption_1 style={{ color: Colors.Main.Gray_2 }}>{text}</Caption_1>
-      </View>
+      </Button>
     </TouchableOpacity>
   );
 };
 
-const styles = StyleSheet.create({
-  button: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: Colors.Main.White,
-    borderRadius: 20,
-    padding: 4,
-    color: Colors.Main.Gray_2,
-  },
-  icon: {
-    marginRight: 8,
-    width: 32,
-    height: 32,
-  },
-});
+const Button = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: ${Colors.Main.White};
+  border-radius: 20;
+  padding: 4px;
+  color: ${Colors.Main.Gray_2};
+`;
+
+const Icon = styled.Image`
+  margin-right: 8px;
+  width: 32px;
+  height: 32px;
+`;
