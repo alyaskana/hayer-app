@@ -17,6 +17,7 @@ export const useLoadedAssets = () => {
         await Font.loadAsync({
           SuisseIntlSemiBold: require("~/assets/fonts/SuisseIntl-SemiBold.otf"),
           SuisseIntlBook: require("~/assets/fonts/SuisseIntl-Book.otf"),
+          SuisseIntlRegular: require("~/assets/fonts/SuisseIntl-Regular.otf"),
         });
       } catch (e) {
         // We might want to provide this error information to an error reporting service
