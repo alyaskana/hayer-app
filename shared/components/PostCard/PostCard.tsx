@@ -11,15 +11,7 @@ import {
   Caption_1,
 } from "shared/ui/Typography";
 import { Colors } from "constants/Colors";
-
-// вынести из компонента
-// const truncateString = (str, num) => {
-//   if (str.length > num) {
-//     return str.slice(0, num) + "...";
-//   } else {
-//     return str;
-//   }
-// };
+import { truncate } from "shared/utils";
 
 type PostCardProps = {
   user: any;
@@ -81,7 +73,7 @@ export const PostCard: FC<PostCardProps> = ({
             <Tag style={{ marginRight: 4 }} text={tag.name} />
           ))}
         </Tags>
-        <Text style={{ marginBottom: 24 }}>{description}</Text>
+        <Text style={{ marginBottom: 24 }}>{truncate(description, 150)}</Text>
         <Footer>
           <UserInfo>
             <UserAvatar source={require("../../../assets/images/avatar.jpg")} />
