@@ -14,7 +14,6 @@ export const BottomTabNavigator = () => {
       screenOptions={{
         tabBarStyle: {
           height: 120,
-
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
@@ -35,7 +34,6 @@ export const BottomTabNavigator = () => {
           tabBarIconStyle: { display: "none" },
         }}
       />
-
       <BottomTab.Screen
         name="add"
         component={ProfileNavigator}
@@ -84,14 +82,6 @@ export const BottomTabNavigator = () => {
   );
 };
 
-// You can explore the built-in icon families and icons on the web at:
-// https://icons.expo.fyi/
-function TabBarIcon(props) {
-  return <Ionicons size={30} style={{ marginBottom: -3 }} {...props} />;
-}
-
-// Each tab has its own navigation stack, you can read more about this pattern here:
-// https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
 const FeedStack = createStackNavigator();
 
 function FeedNavigator() {
@@ -100,7 +90,7 @@ function FeedNavigator() {
       <FeedStack.Screen
         name="Feed"
         component={FeedScreen}
-        options={{ title: "Лента" }}
+        options={{ title: "Лента", headerShown: false }}
       />
       <FeedStack.Screen
         name="Post"
@@ -119,7 +109,7 @@ function ProfileNavigator() {
       <ProfileStack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
-        options={{ headerTitle: "Профиль" }}
+        options={{ headerTitle: "Профиль", headerShown: false }}
       />
       <FeedStack.Screen
         name="Post"

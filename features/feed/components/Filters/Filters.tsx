@@ -65,4 +65,6 @@ const FilterGroup = styled.View`
   width: 100%;
   display: flex;
   flex-direction: row;
+  margin-bottom: 8px;
+  margin-top: 5px;
 `;

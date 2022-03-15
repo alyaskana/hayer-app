@@ -8,28 +8,26 @@ import { NotFoundScreen } from "screens/NotFoundScreen";
 import { BottomTabNavigator } from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 
+const Stack = createStackNavigator();
+
 export const Navigation = () => {
   return (
     <NavigationContainer
       linking={LinkingConfiguration as any}
       theme={DefaultTheme}
     >
-      <RootNavigator />
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen
+          name="Home"
+          component={BottomTabNavigator}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="NotFound"
+          component={NotFoundScreen}
+          options={{ title: "Oops!" }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const Stack = createStackNavigator();
-
-function RootNavigator() {
-  return (
-    <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={BottomTabNavigator} />
-      <Stack.Screen
-        name="NotFound"
-        component={NotFoundScreen}
-        options={{ title: "Oops!" }}
-      />
-    </Stack.Navigator>
-  );
-}
