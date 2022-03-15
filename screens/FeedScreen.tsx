@@ -10,6 +10,7 @@ import { useState } from "react";
 import { PostsFilters } from "features/feed";
 import { PostCard } from "shared/components";
 import { PostsMock } from "mocks/posts";
+import { Colors } from "constants/Colors";
 
 export const FeedScreen = ({ navigation }) => {
   const [activeFilters, setActiveFilters] = useState([
@@ -41,39 +42,23 @@ export const FeedScreen = ({ navigation }) => {
   );
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "flex-start",
-        marginTop: 8,
-        paddingLeft: 8,
-        paddingRight: 8,
-      }}
-    >
-      <PostsFilters
-        activeFilters={activeFilters}
-        setActiveFilters={setActiveFilters}
-      />
-      <SafeAreaView style={styles.container}>
+    <SafeAreaView>
+      <View
+        style={{
+          paddingHorizontal: 8,
+        }}
+      >
+        <StatusBar backgroundColor={Colors.Main.White_gray} />
+        <PostsFilters
+          activeFilters={activeFilters}
+          setActiveFilters={setActiveFilters}
+        />
         <FlatList
-          style={styles.list}
           data={PostsMock}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
-      </SafeAreaView>
-    </View>
+      </View>
+    </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight + 8 || 8,
-    width: "100%",
-  },
-  list: {
-    width: "100%",
-  },
-});

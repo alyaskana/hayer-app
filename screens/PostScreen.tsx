@@ -1,50 +1,40 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, ScrollView, Image } from "react-native";
 
-import { PostCard } from "shared/components";
+import { PostCardFull } from "features/feed";
 import { PostsMock } from "mocks/posts";
+import { useEffect, useState } from "react";
+import { ResponseCounter } from "features/feed/components/Post/ResponseCounter";
+import { Deadline } from "features/feed/components/Post/Deadline";
 
 export const PostScreen = ({
   route: {
     params: { id },
   },
 }) => {
-  const post = PostsMock.find((post) => post.id == id);
+  const [post, setPost] = useState<any>();
+
+  useEffect(() => {
+    const mockPost = PostsMock.find((post) => post.id == id);
+    setPost(mockPost);
+  }, []);
+
+  if (!post) return null;
+
   return (
-    <View style={{ padding: 8 }}>
-      <PostCard isFullDescription {...post} onPress={() => alert("press")} />
-      <View
-        style={{
-          backgroundColor: "#fff",
-          borderRadius: 20,
-          padding: 12,
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "flex-end",
-          height: 102,
-        }}
-      >
-        <Text
-          style={{
-            fontSize: 93,
-            lineHeight: 93,
-          }}
-        >
-          13
-        </Text>
-        <Text
-          style={{
-            marginLeft: 5,
-            fontSize: 24,
-            fontWeight: "500",
-          }}
-        >
-          Откликов
-        </Text>
-        <Image
-          source={require("../assets/images/response.png")}
-          style={{ marginLeft: "auto" }}
-        />
-      </View>
+    <ScrollView style={{ padding: 8 }}>
+      <PostCardFull
+        key={post.id}
+        title={post.title}
+        type={post.type}
+        description={post.description}
+        user={post.user}
+        tags={post.tags}
+        format={post.format}
+        deadline={post.deadline}
+        isFavourite={post.isFavourite}
+      />
+      <ResponseCounter count={post.responses.length} />
+      <Deadline date={post.deadline} />
       <View
         style={{
           height: 80,
@@ -58,6 +48,6 @@ export const PostScreen = ({
       >
         <Text style={{ color: "#FFF", fontSize: 18 }}>Откликнуться</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };

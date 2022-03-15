@@ -20,7 +20,7 @@ type PostCardProps = {
   description: string;
   type: string[];
   format: string;
-  deadline: Date;
+  deadline: string;
   responsesCount: number;
   onPress: () => void;
   navigation: any;
@@ -76,7 +76,7 @@ export const PostCard: FC<PostCardProps> = ({
         <Text style={{ marginBottom: 24 }}>{truncate(description, 150)}</Text>
         <Footer>
           <UserInfo>
-            <UserAvatar source={require("../../../assets/images/avatar.jpg")} />
+            <UserAvatar source={require("assets/images/avatar.jpg")} />
             <Caption_1>{user.name}</Caption_1>
           </UserInfo>
           <View>

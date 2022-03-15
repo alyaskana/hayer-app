@@ -1,4 +1,4 @@
-import { View, Image } from "react-native";
+import { View } from "react-native";
 import { FC } from "react";
 import styled from "styled-components/native";
 
@@ -69,7 +69,7 @@ export const PostCardFull: FC<PostCardProps> = ({
       <Text style={{ marginBottom: 24 }}>{description}</Text>
       <Footer>
         <UserInfo>
-          <UserAvatar source={require("../../../assets/images/avatar.jpg")} />
+          <UserAvatar source={require("assets/images/avatar.jpg")} />
           <Caption_1>{user.name}</Caption_1>
         </UserInfo>
         <View>
