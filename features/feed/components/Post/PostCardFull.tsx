@@ -1,6 +1,8 @@
 import { View } from "react-native";
 import { FC } from "react";
 import styled from "styled-components/native";
+import { formatRelative } from "date-fns";
+import russianLocale from "date-fns/locale/ru";
 
 import { Tag } from "shared/components/Tag/Tag";
 import { Caption_2, Title, Text, Caption_1 } from "shared/ui/Typography";
@@ -65,7 +67,9 @@ export const PostCardFull: FC<PostCardProps> = ({ post }) => {
         </UserInfo>
         <View>
           <Caption_2 style={{ color: Colors.Main.Gray_1 }}>
-            4 часа назад
+            {formatRelative(new Date(post.created_at), new Date(), {
+              locale: russianLocale,
+            })}
           </Caption_2>
         </View>
       </Footer>
