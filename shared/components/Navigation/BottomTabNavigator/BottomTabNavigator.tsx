@@ -1,10 +1,9 @@
 // Learn more about createBottomTabNavigator:
-// https://reactnavigation.org/docs/bottom-tab-navigator
-import Ionicons from "@expo/vector-icons/Ionicons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createStackNavigator } from "@react-navigation/stack";
 import { Text, View } from "react-native";
-import { FeedScreen, ProfileScreen, PostScreen } from "screens";
+import { CreatePostNavigator } from "./CreatePostNavigator";
+import { FeedNavigator } from "./FeedNavigator";
+import { ProfileNavigator } from "./ProfileNavigator";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -36,7 +35,7 @@ export const BottomTabNavigator = () => {
       />
       <BottomTab.Screen
         name="add"
-        component={ProfileNavigator}
+        component={CreatePostNavigator}
         options={{
           tabBarButton: () => (
             <View
@@ -69,6 +68,7 @@ export const BottomTabNavigator = () => {
         component={ProfileNavigator}
         options={{
           headerShown: false,
+          // tabBarShowLabel: false,
           tabBarLabelStyle: {
             fontSize: 16,
             marginBottom: 12,
@@ -81,41 +81,3 @@ export const BottomTabNavigator = () => {
     </BottomTab.Navigator>
   );
 };
-
-const FeedStack = createStackNavigator();
-
-function FeedNavigator() {
-  return (
-    <FeedStack.Navigator screenOptions={{ headerShown: true }}>
-      <FeedStack.Screen
-        name="Feed"
-        component={FeedScreen}
-        options={{ title: "Лента", headerShown: false }}
-      />
-      <FeedStack.Screen
-        name="Post"
-        component={PostScreen}
-        options={{ title: "Объявление" }}
-      />
-    </FeedStack.Navigator>
-  );
-}
-
-const ProfileStack = createStackNavigator();
-
-function ProfileNavigator() {
-  return (
-    <ProfileStack.Navigator screenOptions={{ headerShown: true }}>
-      <ProfileStack.Screen
-        name="ProfileScreen"
-        component={ProfileScreen}
-        options={{ headerTitle: "Профиль", headerShown: false }}
-      />
-      <FeedStack.Screen
-        name="Post"
-        component={PostScreen}
-        options={{ title: "Объявление" }}
-      />
-    </ProfileStack.Navigator>
-  );
-}

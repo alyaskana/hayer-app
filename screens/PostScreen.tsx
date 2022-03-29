@@ -1,4 +1,4 @@
-import { Text, View, ScrollView, Image } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 
 import { PostCardFull } from "features/feed";
 import { PostsMock } from "mocks/posts";

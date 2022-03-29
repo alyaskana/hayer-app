@@ -5,7 +5,7 @@ import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import { NotFoundScreen } from "screens/NotFoundScreen";
-import { BottomTabNavigator } from "./BottomTabNavigator";
+import { BottomTabNavigator } from "./BottomTabNavigator/BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
 
 const Stack = createStackNavigator();
