@@ -54,11 +54,11 @@ export const PostCardFull: FC<PostCardProps> = ({ post }) => {
         )}
       </Header>
       <Title style={{ marginBottom: 12 }}>{post.title}</Title>
-      <Tags>
+      {/* <Tags>
         {post.tags.map((tag) => (
           <Tag style={{ marginRight: 4 }} text={tag.name} />
         ))}
-      </Tags>
+      </Tags> */}
       <Text style={{ marginBottom: 24 }}>{post.description}</Text>
       <Footer>
         <UserInfo>

@@ -57,11 +57,11 @@ export const PostCard: FC<PostCardProps> = ({ onPress, post, style }) => {
           </ResponseCounter>
         </Header>
         <Title style={{ marginBottom: 12 }}>{post.title}</Title>
-        <Tags>
+        {/* <Tags>
           {post.tags.map((tag) => (
             <Tag style={{ marginRight: 4 }} text={tag.name} />
           ))}
-        </Tags>
+        </Tags> */}
         <Text style={{ marginBottom: 24 }}>
           {truncate(post.description, 150)}
         </Text>
