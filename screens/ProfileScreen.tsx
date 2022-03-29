@@ -135,11 +135,11 @@ export const ProfileScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={{ marginTop: 8 }}>
-          {profileMock.posts.map((post) => (
+          {(profileMock.posts as any).map((post) => (
             <PostCard
               key={post.id}
               style={{ marginBottom: 8 }}
-              responsesCount={post.responses.length}
+              post={post}
               navigation={navigation}
               onPress={() =>
                 navigation.push("Post", {

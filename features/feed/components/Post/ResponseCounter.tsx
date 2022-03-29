@@ -5,7 +5,7 @@ import styled from "styled-components/native";
 export const ResponseCounter = ({ count }) => {
   return (
     <Wrap>
-      <Count>{count}2</Count>
+      <Count>{count}</Count>
       <Title>отклик(ов)</Title>
       <Icon source={require("assets/images/response_72.png")} />
     </Wrap>

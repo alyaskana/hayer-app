@@ -1,16 +1,13 @@
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  StatusBar,
-  SafeAreaView,
-} from "react-native";
-import { useState } from "react";
+import { View, FlatList, StatusBar, SafeAreaView } from "react-native";
+import { useState, useEffect } from "react";
+import intersection from "lodash/intersection";
 
 import { PostsFilters } from "features/feed";
 import { PostCard } from "shared/components";
-import { PostsMock } from "mocks/posts";
+import { postsFetcher } from "shared/api";
+import { Post } from "shared/types/post";
 import { Colors } from "constants/Colors";
+import { Headline } from "shared/ui/Typography";
 
 export const FeedScreen = ({ navigation }) => {
   const [activeFilters, setActiveFilters] = useState([
@@ -18,20 +15,24 @@ export const FeedScreen = ({ navigation }) => {
     "work",
     "event",
   ]);
-  console.log("===========", activeFilters);
+
+  const [posts, setPosts] = useState<Post[]>([]);
+
+  useEffect(() => {
+    postsFetcher.getAll().then(({ data }) => {
+      data = data.filter((post) => {
+        const postAdTypes = post.ad_types.map((type) => type.key);
+        return intersection(postAdTypes, activeFilters).length > 0;
+      });
+      setPosts(data);
+    });
+  }, [activeFilters]);
 
   const renderItem = ({ item }) => (
     <PostCard
       key={item.id}
-      title={item.title}
-      type={item.type}
-      description={item.description}
-      user={item.user}
-      tags={item.tags}
-      format={item.format}
+      post={item}
       navigation={navigation}
-      deadline={item.deadline}
-      responsesCount={item.responses.length}
       style={{ marginBottom: 8 }}
       onPress={() =>
         navigation.push("Post", {
@@ -53,11 +54,25 @@ export const FeedScreen = ({ navigation }) => {
           activeFilters={activeFilters}
           setActiveFilters={setActiveFilters}
         />
-        <FlatList
-          data={PostsMock}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        {posts.length > 0 ? (
+          <FlatList
+            data={posts}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+          />
+        ) : (
+          <View
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              marginTop: 250,
+            }}
+          >
+            <Headline>Нет постов.</Headline>
+            <Headline>Попробуйте расслабить фильтры.</Headline>
+          </View>
+        )}
       </View>
     </SafeAreaView>
   );

@@ -5,50 +5,41 @@ import styled from "styled-components/native";
 import { Tag } from "shared/components/Tag/Tag";
 import { Caption_2, Title, Text, Caption_1 } from "shared/ui/Typography";
 import { Colors } from "constants/Colors";
+import { Post } from "shared/types";
 
 type PostCardProps = {
-  user: any;
-  title: string;
-  tags: any[];
-  description: string;
-  type: string[];
-  format: string;
-  deadline: Date;
-  isFavourite: boolean;
+  post: Post;
 };
 
-export const PostCardFull: FC<PostCardProps> = ({
-  title,
-  description,
-  user,
-  tags,
-  type,
-  format,
-  deadline,
-  isFavourite,
-}) => {
+export const PostCardFull: FC<PostCardProps> = ({ post }) => {
   const handleFavorite = () => {
     alert("click");
   };
+
+  const isPostAdType = (type: string): boolean => {
+    return !!post.ad_types.find((ad_type) => ad_type.key === type);
+  };
+
   return (
     <PostWrap>
       <Header>
         <HeaderInfo>
-          {new Date(deadline) < new Date() ? (
+          {new Date(post.deadline) < new Date() ? (
             <IconCategory source={require("assets/images/closed.png")} />
           ) : null}
-          {type.includes("work") ? (
+          {isPostAdType("work") ? (
             <IconCategory source={require("assets/images/work_active.png")} />
           ) : null}
-          {type.includes("study") ? (
+          {isPostAdType("study") ? (
             <IconCategory source={require("assets/images/study_active.png")} />
           ) : null}
-          {type.includes("event") ? (
+          {isPostAdType("event") ? (
             <IconCategory source={require("assets/images/event_active.png")} />
           ) : null}
-          <Caption_2 style={{ marginLeft: 4 }}>{format}</Caption_2>
+          <Caption_2 style={{ marginLeft: 4 }}>{post.format}</Caption_2>
         </HeaderInfo>
-        {isFavourite ? (
+        {/* TODO: Add is favorite logic */}
+        {false ? (
           <FavotiteIcon
             onPress={handleFavorite}
             source={require("assets/images/bookmark_active.png")}
@@ -60,17 +51,17 @@ export const PostCardFull: FC<PostCardProps> = ({
           />
         )}
       </Header>
-      <Title style={{ marginBottom: 12 }}>{title}</Title>
+      <Title style={{ marginBottom: 12 }}>{post.title}</Title>
       <Tags>
-        {tags.map((tag) => (
+        {post.tags.map((tag) => (
           <Tag style={{ marginRight: 4 }} text={tag.name} />
         ))}
       </Tags>
-      <Text style={{ marginBottom: 24 }}>{description}</Text>
+      <Text style={{ marginBottom: 24 }}>{post.description}</Text>
       <Footer>
         <UserInfo>
           <UserAvatar source={require("assets/images/avatar.jpg")} />
-          <Caption_1>{user.name}</Caption_1>
+          <Caption_1>{`${post.user.first_name} ${post.user.last_name}`}</Caption_1>
         </UserInfo>
         <View>
           <Caption_2 style={{ color: Colors.Main.Gray_1 }}>

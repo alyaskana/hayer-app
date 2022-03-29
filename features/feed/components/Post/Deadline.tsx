@@ -1,5 +1,8 @@
 import styled from "styled-components/native";
 import { View } from "react-native";
+import { differenceInCalendarDays } from "date-fns";
+import { pluralize } from "shared/utils";
+
 import { Colors } from "constants/Colors";
 import { Headline, Title } from "shared/ui/Typography";
 
@@ -12,7 +15,13 @@ export const Deadline = ({ date }) => {
           <Headline style={{ color: Colors.Main.Gray_1, marginBottom: 4 }}>
             Дедлайн
           </Headline>
-          <Title>12 дней</Title>
+          <Title>
+            {pluralize(differenceInCalendarDays(new Date(date), new Date()), [
+              "день",
+              "дня",
+              "дней",
+            ])}
+          </Title>
         </View>
       </Wrap>
     );

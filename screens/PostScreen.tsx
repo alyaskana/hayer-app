@@ -1,38 +1,28 @@
 import { Text, View, ScrollView } from "react-native";
+import { useEffect, useState } from "react";
 
 import { PostCardFull } from "features/feed";
-import { PostsMock } from "mocks/posts";
-import { useEffect, useState } from "react";
 import { ResponseCounter } from "features/feed/components/Post/ResponseCounter";
 import { Deadline } from "features/feed/components/Post/Deadline";
+import { postsFetcher } from "shared/api";
+import { Post } from "shared/types";
 
 export const PostScreen = ({
   route: {
     params: { id },
   },
 }) => {
-  const [post, setPost] = useState<any>();
+  const [post, setPost] = useState<Post>();
 
   useEffect(() => {
-    const mockPost = PostsMock.find((post) => post.id == id);
-    setPost(mockPost);
+    postsFetcher.getById(id).then(({ data }) => setPost(data));
   }, []);
 
   if (!post) return null;
 
   return (
     <ScrollView style={{ padding: 8 }}>
-      <PostCardFull
-        key={post.id}
-        title={post.title}
-        type={post.type}
-        description={post.description}
-        user={post.user}
-        tags={post.tags}
-        format={post.format}
-        deadline={post.deadline}
-        isFavourite={post.isFavourite}
-      />
+      <PostCardFull key={post.id} post={post} />
       <ResponseCounter count={post.responses.length} />
       <Deadline date={post.deadline} />
       <View

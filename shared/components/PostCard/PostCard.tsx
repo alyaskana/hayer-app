@@ -12,72 +12,61 @@ import {
 } from "shared/ui/Typography";
 import { Colors } from "constants/Colors";
 import { truncate } from "shared/utils";
+import { Post } from "shared/types/post";
 
 type PostCardProps = {
-  user: any;
-  title: string;
-  tags: any[];
-  description: string;
-  type: string[];
-  format: string;
-  deadline: string;
-  responsesCount: number;
+  post: Post;
   onPress: () => void;
   navigation: any;
   style: Object;
 };
 
-export const PostCard: FC<PostCardProps> = ({
-  title,
-  description,
-  user,
-  tags,
-  type,
-  format,
-  deadline,
-  responsesCount,
-  onPress,
-  style,
-}) => {
+export const PostCard: FC<PostCardProps> = ({ onPress, post, style }) => {
+  const isPostAdType = (type: string): boolean => {
+    return !!post.ad_types.find((ad_type) => ad_type.key === type);
+  };
+
   return (
     <TouchableOpacity style={style} activeOpacity={0.6} onPress={onPress}>
       <PostWrap>
         <Header>
           <HeaderInfo>
-            {new Date(deadline) < new Date() ? (
+            {new Date(post.deadline) < new Date() ? (
               <IconCategory source={require("assets/images/closed.png")} />
             ) : null}
-            {type.includes("work") ? (
+            {isPostAdType("work") ? (
               <IconCategory source={require("assets/images/work_active.png")} />
             ) : null}
-            {type.includes("study") ? (
+            {isPostAdType("study") ? (
               <IconCategory
                 source={require("assets/images/study_active.png")}
               />
             ) : null}
-            {type.includes("event") ? (
+            {isPostAdType("event") ? (
               <IconCategory
                 source={require("assets/images/event_active.png")}
               />
             ) : null}
-            <Caption_2 style={{ marginLeft: 4 }}>{format}</Caption_2>
+            <Caption_2 style={{ marginLeft: 4 }}>{post.format}</Caption_2>
           </HeaderInfo>
           <ResponseCounter>
             <ResponseIcon source={require("assets/images/response.png")} />
-            <Headline>{responsesCount}</Headline>
+            <Headline>{post.responses.length}</Headline>
           </ResponseCounter>
         </Header>
-        <Title style={{ marginBottom: 12 }}>{title}</Title>
+        <Title style={{ marginBottom: 12 }}>{post.title}</Title>
         <Tags>
-          {tags.map((tag) => (
+          {post.tags.map((tag) => (
             <Tag style={{ marginRight: 4 }} text={tag.name} />
           ))}
         </Tags>
-        <Text style={{ marginBottom: 24 }}>{truncate(description, 150)}</Text>
+        <Text style={{ marginBottom: 24 }}>
+          {truncate(post.description, 150)}
+        </Text>
         <Footer>
           <UserInfo>
             <UserAvatar source={require("assets/images/avatar.jpg")} />
-            <Caption_1>{user.name}</Caption_1>
+            <Caption_1>{`${post.user.first_name} ${post.user.last_name}`}</Caption_1>
           </UserInfo>
           <View>
             <Caption_2 style={{ color: Colors.Main.Gray_1 }}>
