@@ -28,7 +28,7 @@ export const LoginScreen: FC<{ navigation: any }> = ({ navigation }) => {
 
   const onSubmit: SubmitHandler<FormInputs> = ({ email, password }) => {
     login(email, password).then(() => {
-      navigation.navigate("Home", {}, { screen: "Feed" });
+      navigation.navigate("Home", { screen: "Feed" });
     });
   };
 
@@ -48,6 +48,8 @@ export const LoginScreen: FC<{ navigation: any }> = ({ navigation }) => {
                 <Input
                   textContentType="emailAddress"
                   placeholder="Enter your email here"
+                  autoCapitalize="none"
+                  autoCorrect={false}
                   value={value}
                   onBlur={onBlur}
                   onChangeText={onChange}

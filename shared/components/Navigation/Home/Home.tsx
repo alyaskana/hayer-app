@@ -1,15 +1,15 @@
-// Learn more about createBottomTabNavigator:
+// Learn more about createTabNavigator:
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Text, View } from "react-native";
 import { CreatePostNavigator } from "./CreatePostNavigator";
 import { FeedNavigator } from "./FeedNavigator";
 import { ProfileNavigator } from "./ProfileNavigator";
 
-const BottomTab = createBottomTabNavigator();
+const Tab = createBottomTabNavigator();
 
-export const BottomTabNavigator = () => {
+export const Home = () => {
   return (
-    <BottomTab.Navigator
+    <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
           height: 120,
@@ -19,8 +19,8 @@ export const BottomTabNavigator = () => {
         },
       }}
     >
-      <BottomTab.Screen
-        name="Лента"
+      <Tab.Screen
+        name="Feed"
         component={FeedNavigator}
         options={{
           headerShown: false,
@@ -33,7 +33,7 @@ export const BottomTabNavigator = () => {
           tabBarIconStyle: { display: "none" },
         }}
       />
-      <BottomTab.Screen
+      <Tab.Screen
         name="add"
         component={CreatePostNavigator}
         options={{
@@ -63,12 +63,11 @@ export const BottomTabNavigator = () => {
           ),
         }}
       />
-      <BottomTab.Screen
-        name="Профиль"
+      <Tab.Screen
+        name="Profile"
         component={ProfileNavigator}
         options={{
           headerShown: false,
-          // tabBarShowLabel: false,
           tabBarLabelStyle: {
             fontSize: 16,
             marginBottom: 12,
@@ -78,6 +77,6 @@ export const BottomTabNavigator = () => {
           tabBarIconStyle: { display: "none" },
         }}
       />
-    </BottomTab.Navigator>
+    </Tab.Navigator>
   );
 };
