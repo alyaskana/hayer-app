@@ -19,8 +19,8 @@ export const LoginScreen: FC<{ navigation: any }> = ({ navigation }) => {
   } = useForm<FormInputs>({
     mode: "onBlur",
     defaultValues: {
-      email: "",
-      password: "",
+      email: "aabychkova_4@edu.hse.ru",
+      password: "123456",
     },
   });
   const { token, login } = useAuth();

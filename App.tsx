@@ -6,13 +6,13 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import { headerConfig } from "shared/components/Navigation/headerConfig";
 import { AuthProvider } from "shared/hooks/useAuth";
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
 import { Home } from "shared/components/Navigation/Home/Home";
 import { Step1Screen, Step2Screen, Step3Screen } from "screens/onboarding";
-import BackIcon from "assets/images/back_button.svg";
-import { Colors } from "constants/Colors";
 import { AuthScreen, LoginScreen } from "screens/auth";
+import { CreatePostScreen, PostScreen } from "screens";
 
 const HAS_LAUNCHED_KEY = "hasLaunched";
 const Stack = createStackNavigator();
@@ -25,7 +25,7 @@ export default function App() {
     AsyncStorage.getItem(HAS_LAUNCHED_KEY).then((res) => setHasLaunched(res));
     AsyncStorage.setItem(HAS_LAUNCHED_KEY, "true"); // ставит флаг что однажды уже запускалось приложение
 
-    AsyncStorage.removeItem(HAS_LAUNCHED_KEY); // TODO: удалить потом
+    // AsyncStorage.removeItem(HAS_LAUNCHED_KEY); // TODO: удалить потом
   }, []);
 
   if (!isLoadingComplete) {
@@ -36,32 +36,9 @@ export default function App() {
     <NavigationContainer>
       <AuthProvider>
         <SafeAreaProvider>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={headerConfig}>
             {!hasLaunched && (
-              <Stack.Group
-                screenOptions={{
-                  headerBackImage: () => (
-                    <View
-                      style={{
-                        paddingLeft: 8,
-                        paddingBottom: 2,
-                      }}
-                    >
-                      <BackIcon width={64} height={40} />
-                    </View>
-                  ),
-                  headerBackTitleVisible: false,
-                  headerStyle: {
-                    backgroundColor: Colors.Main.White_gray,
-                  },
-                  headerShadowVisible: false,
-                  headerTitleStyle: {
-                    fontFamily: "SuisseIntlSemiBold",
-                    fontSize: 18,
-                    color: Colors.Main.Gray_3,
-                  },
-                }}
-              >
+              <Stack.Group>
                 <Stack.Screen
                   name="OnboardingStep1"
                   component={Step1Screen}
@@ -79,30 +56,24 @@ export default function App() {
                 />
               </Stack.Group>
             )}
-            <Stack.Group
-              screenOptions={{
-                headerBackImage: () => (
-                  <View
-                    style={{
-                      paddingLeft: 8,
-                      paddingBottom: 2,
-                    }}
-                  >
-                    <BackIcon width={64} height={40} />
-                  </View>
-                ),
-                headerBackTitleVisible: false,
-                headerStyle: {
-                  backgroundColor: Colors.Main.White_gray,
-                },
-                headerShadowVisible: false,
-                headerTitleStyle: {
-                  fontFamily: "SuisseIntlSemiBold",
-                  fontSize: 18,
-                  color: Colors.Main.Gray_3,
-                },
-              }}
-            >
+            <Stack.Group>
+              <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="AddPost"
+                component={CreatePostScreen}
+                options={{ title: "Создать объявление" }}
+              />
+              <Stack.Screen
+                name="Post"
+                component={PostScreen}
+                options={{ title: "Объявление" }}
+              />
+            </Stack.Group>
+            <Stack.Group>
               <Stack.Screen
                 name="Auth"
                 component={AuthScreen}
@@ -112,13 +83,6 @@ export default function App() {
                 name="Login"
                 component={LoginScreen}
                 options={{ title: "Вход" }}
-              />
-            </Stack.Group>
-            <Stack.Group screenOptions={{ headerShown: false }}>
-              <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
               />
             </Stack.Group>
           </Stack.Navigator>

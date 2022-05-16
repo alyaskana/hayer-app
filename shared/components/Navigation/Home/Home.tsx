@@ -1,80 +1,95 @@
 // Learn more about createTabNavigator:
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, View } from "react-native";
-import { CreatePostNavigator } from "./CreatePostNavigator";
-import { FeedNavigator } from "./FeedNavigator";
+import { Text, View, TouchableOpacity } from "react-native";
 import { ProfileNavigator } from "./ProfileNavigator";
+import FeedIcon from "assets/images/feed.svg";
+import FavoritesIcon from "assets/images/favorites.svg";
+import AddIcon from "assets/images/add.svg";
+import UserIcon from "assets/images/user.svg";
+import ResponseIcon from "assets/images/response.svg";
+import { Colors } from "constants/Colors";
+import {
+  CreatePostScreen,
+  FeedScreen,
+  ProfileScreen,
+  ResponsesScreen,
+} from "screens";
+import { FavoritesScreen } from "screens";
 
 const Tab = createBottomTabNavigator();
 
-export const Home = () => {
+export const Home = ({ navigation }) => {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          height: 120,
+          // height: 120,
           display: "flex",
           flexDirection: "row",
-          alignItems: "center",
+          alignItems: "stretch",
+          justifyContent: "space-between",
         },
+        tabBarActiveTintColor: Colors.Main.Primary,
+        tabBarInactiveTintColor: Colors.Main.Gray_1,
+        tabBarLabel: "",
+        headerShown: false,
       }}
     >
       <Tab.Screen
         name="Feed"
-        component={FeedNavigator}
+        component={FeedScreen}
         options={{
-          headerShown: false,
-          tabBarLabelStyle: {
-            fontSize: 16,
-            marginBottom: 12,
-            fontWeight: "500",
-          },
-          tabBarIcon: () => false,
-          tabBarIconStyle: { display: "none" },
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <FeedIcon style={{ color }} />,
+        }}
+      />
+      <Tab.Screen
+        name="Favorites"
+        component={FavoritesScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <FavoritesIcon style={{ color }} />,
         }}
       />
       <Tab.Screen
         name="add"
-        component={CreatePostNavigator}
+        component={CreatePostScreen}
         options={{
-          tabBarButton: () => (
-            <View
+          // tabBarIcon: ({ color }) => (
+          //   <View style={{   }}>
+          //     <AddIcon style={{ color }} />
+          //   </View>
+          // ),
+          tabBarButton: (props) => (
+            <TouchableOpacity
+              {...props}
+              onPress={() => navigation.navigate("AddPost")}
               style={{
+                flex: 1,
                 display: "flex",
-                flexDirection: "row",
                 alignItems: "center",
-                height: 48,
-                paddingLeft: 36,
-                paddingRight: 36,
-                borderRadius: 100,
-                backgroundColor: "#1C63EC",
+                justifyContent: "center",
               }}
             >
-              <Text
-                style={{
-                  color: "#ffffff",
-                  lineHeight: 32,
-                  fontSize: 28,
-                }}
-              >
-                +
-              </Text>
-            </View>
+              <AddIcon style={{ color: Colors.Main.Gray_1 }} />
+            </TouchableOpacity>
           ),
         }}
       />
       <Tab.Screen
-        name="Profile"
-        component={ProfileNavigator}
+        name="Responses"
+        component={ResponsesScreen}
         options={{
-          headerShown: false,
-          tabBarLabelStyle: {
-            fontSize: 16,
-            marginBottom: 12,
-            fontWeight: "500",
-          },
-          tabBarIcon: () => false,
-          tabBarIconStyle: { display: "none" },
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <ResponseIcon style={{ color }} />,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <UserIcon style={{ color }} />,
         }}
       />
     </Tab.Navigator>
