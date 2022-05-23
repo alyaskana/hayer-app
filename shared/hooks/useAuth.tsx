@@ -27,6 +27,7 @@ const useAuthProvider = () => {
   const [token, setToken] = useState(null);
 
   useEffect(() => {
+    // SecureStore.deleteItemAsync(TOKEN_KEY); // очистка логина
     SecureStore.getItemAsync(TOKEN_KEY).then((res) => setToken(res));
   });
 

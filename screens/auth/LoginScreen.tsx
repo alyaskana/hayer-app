@@ -47,7 +47,7 @@ export const LoginScreen: FC<{ navigation: any }> = ({ navigation }) => {
               render={({ field: { onChange, value, onBlur } }) => (
                 <Input
                   textContentType="emailAddress"
-                  placeholder="Enter your email here"
+                  placeholder="example@edu.hse.ru"
                   autoCapitalize="none"
                   autoCorrect={false}
                   value={value}

@@ -1,7 +1,6 @@
 // Learn more about createTabNavigator:
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text, View, TouchableOpacity } from "react-native";
-import { ProfileNavigator } from "./ProfileNavigator";
+import { TouchableOpacity } from "react-native";
 import FeedIcon from "assets/images/feed.svg";
 import FavoritesIcon from "assets/images/favorites.svg";
 import AddIcon from "assets/images/add.svg";
@@ -23,7 +22,6 @@ export const Home = ({ navigation }) => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          // height: 120,
           display: "flex",
           flexDirection: "row",
           alignItems: "stretch",
@@ -55,11 +53,6 @@ export const Home = ({ navigation }) => {
         name="add"
         component={CreatePostScreen}
         options={{
-          // tabBarIcon: ({ color }) => (
-          //   <View style={{   }}>
-          //     <AddIcon style={{ color }} />
-          //   </View>
-          // ),
           tabBarButton: (props) => (
             <TouchableOpacity
               {...props}

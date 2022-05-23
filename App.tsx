@@ -1,17 +1,20 @@
 import "react-native-gesture-handler";
 import { useEffect, useState } from "react";
-import { View } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
-import { headerConfig } from "shared/components/Navigation/headerConfig";
 import { AuthProvider } from "shared/hooks/useAuth";
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
-import { Home } from "shared/components/Navigation/Home/Home";
+import { Home, headerConfig } from "shared/components/Navigation";
 import { Step1Screen, Step2Screen, Step3Screen } from "screens/onboarding";
-import { AuthScreen, LoginScreen } from "screens/auth";
+import {
+  AuthScreen,
+  LoginScreen,
+  RegisterCodeScreen,
+  RegisterEmailScreen,
+} from "screens/auth";
 import { CreatePostScreen, PostScreen } from "screens";
 
 const HAS_LAUNCHED_KEY = "hasLaunched";
@@ -25,7 +28,7 @@ export default function App() {
     AsyncStorage.getItem(HAS_LAUNCHED_KEY).then((res) => setHasLaunched(res));
     AsyncStorage.setItem(HAS_LAUNCHED_KEY, "true"); // ставит флаг что однажды уже запускалось приложение
 
-    // AsyncStorage.removeItem(HAS_LAUNCHED_KEY); // TODO: удалить потом
+    AsyncStorage.removeItem(HAS_LAUNCHED_KEY); // TODO: удалить потом
   }, []);
 
   if (!isLoadingComplete) {
@@ -72,17 +75,27 @@ export default function App() {
                 component={PostScreen}
                 options={{ title: "Объявление" }}
               />
-            </Stack.Group>
-            <Stack.Group>
+              {/* </Stack.Group>
+            <Stack.Group> */}
               <Stack.Screen
                 name="Auth"
                 component={AuthScreen}
-                options={{ title: "" }}
+                options={{ headerShown: false }}
               />
               <Stack.Screen
                 name="Login"
                 component={LoginScreen}
                 options={{ title: "Вход" }}
+              />
+              <Stack.Screen
+                name="SignUp"
+                component={RegisterEmailScreen}
+                options={{ title: "Регистрация" }}
+              />
+              <Stack.Screen
+                name="SignUpCode"
+                component={RegisterCodeScreen}
+                options={{ title: "Регистрация" }}
               />
             </Stack.Group>
           </Stack.Navigator>

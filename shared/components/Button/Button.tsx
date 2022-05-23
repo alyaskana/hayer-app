@@ -7,9 +7,15 @@ import { Caption_1, Headline } from "shared/ui/Typography";
 type ButtonProps = {
   text: string;
   variant: "primary" | "secondary";
+  danger?: boolean;
 } & PressableProps;
 
-export const Button: FC<ButtonProps> = ({ text, variant, ...buttonProps }) => {
+export const Button: FC<ButtonProps> = ({
+  text,
+  variant,
+  danger,
+  ...buttonProps
+}) => {
   return (
     <Pressable style={{ alignSelf: "stretch" }} {...buttonProps}>
       {({ pressed }) => {
@@ -25,7 +31,7 @@ export const Button: FC<ButtonProps> = ({ text, variant, ...buttonProps }) => {
                 pressed={pressed}
                 disabled={buttonProps.disabled}
               >
-                <SCaption_1>{text}</SCaption_1>
+                <SCaption_1 danger={danger}>{text}</SCaption_1>
               </SecondaryButton>
             )}
           </>

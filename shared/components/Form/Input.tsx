@@ -5,14 +5,19 @@ import styled from "styled-components";
 import { Caption_3 } from "shared/ui/Typography";
 
 type InputProps = {
+  hint?: string;
   error?: string;
 } & TextInputProps;
 
-export const Input: FC<InputProps> = ({ error, ...inputProps }) => {
+export const Input: FC<InputProps> = ({ hint, error, ...inputProps }) => {
   return (
     <>
       <InputField {...inputProps} />
-      <SCaption_3>{error}</SCaption_3>
+      {error ? (
+        <ErrorMessage>{error}</ErrorMessage>
+      ) : (
+        hint && <HintMessage>{hint}</HintMessage>
+      )}
     </>
   );
 };
@@ -37,7 +42,12 @@ const InputField = styled.TextInput`
   }
 `;
 
-const SCaption_3 = styled(Caption_3)`
+const HintMessage = styled(Caption_3)`
+  margin-top: 8px;
+  color: ${Colors.Main.Gray_2};
+`;
+
+const ErrorMessage = styled(Caption_3)`
   margin-top: 4px;
   color: ${Colors.Accent.Red};
 `;
