@@ -5,10 +5,11 @@ import { Form, Label, Input } from "shared/components/Form";
 import { Button } from "shared/components";
 import { useState } from "react";
 
-export const RegisterCodeScreen = ({
+export const SignUpCodeScreen = ({
   route: {
     params: { email },
   },
+  navigation,
 }) => {
   const {
     control,
@@ -23,7 +24,9 @@ export const RegisterCodeScreen = ({
 
   const [counter, setCounter] = useState("1:00");
 
-  const onSubmit: SubmitHandler<{ code: string }> = () => {};
+  const onSubmit: SubmitHandler<{ code: string }> = () => {
+    navigation.navigate("SuccessCode");
+  };
 
   return (
     <SafeAreaView>
@@ -53,7 +56,7 @@ export const RegisterCodeScreen = ({
           variant="secondary"
           onPress={handleSubmit(onSubmit)}
           style={{ marginTop: 20 }}
-          disabled
+          // disabled
         />
       </View>
     </SafeAreaView>

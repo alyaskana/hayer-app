@@ -9,7 +9,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Form, Label, Input } from "shared/components/Form";
 import { Button } from "shared/components";
 
-export const RegisterEmailScreen = ({ navigation }) => {
+export const SignUpEmailScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,

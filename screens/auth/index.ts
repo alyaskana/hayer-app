@@ -1,4 +1,7 @@
 export { AuthScreen } from "./AuthScreen";
 export { LoginScreen } from "./LoginScreen";
-export { RegisterCodeScreen } from "./RegisterCodeScreen";
-export { RegisterEmailScreen } from "./RegisterEmailScreen";
+export { SignUpCodeScreen } from "./SignUpCodeScreen";
+export { SignUpEmailScreen } from "./SignUpEmailScreen";
+export { SuccessCodeScreen } from "./SuccessCodeScreen";
+export { SignUpFormScreen } from "./SignUpFormScreen";
+export { SignUpForm2Screen } from "./SignUpForm2Screen";

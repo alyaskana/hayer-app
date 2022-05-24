@@ -1,5 +1,4 @@
-import { FC } from "react";
-import { SafeAreaView, View, Text } from "react-native";
+import { SafeAreaView, View } from "react-native";
 
 import { Button } from "shared/components";
 import { FieldSet, Form, Input, Label } from "shared/components/Form";
@@ -11,7 +10,7 @@ type FormInputs = {
   password: string;
 };
 
-export const LoginScreen: FC<{ navigation: any }> = ({ navigation }) => {
+export const LoginScreen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
@@ -63,11 +62,7 @@ export const LoginScreen: FC<{ navigation: any }> = ({ navigation }) => {
             control={control}
             name="password"
             rules={{
-              required: "Пароль должен содержать минимум 6 символов",
-              minLength: {
-                value: 6,
-                message: "Пароль должен содержать минимум 6 символов",
-              },
+              required: "Это обязательное поле",
             }}
             render={({ field: { onChange, value, onBlur } }) => (
               <Input

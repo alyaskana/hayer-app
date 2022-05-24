@@ -12,8 +12,11 @@ import { Step1Screen, Step2Screen, Step3Screen } from "screens/onboarding";
 import {
   AuthScreen,
   LoginScreen,
-  RegisterCodeScreen,
-  RegisterEmailScreen,
+  SignUpCodeScreen,
+  SignUpEmailScreen,
+  SuccessCodeScreen,
+  SignUpFormScreen,
+  SignUpForm2Screen,
 } from "screens/auth";
 import { CreatePostScreen, PostScreen } from "screens";
 
@@ -76,7 +79,7 @@ export default function App() {
                 options={{ title: "Объявление" }}
               />
               {/* </Stack.Group>
-            <Stack.Group> */}
+              <Stack.Group> */}
               <Stack.Screen
                 name="Auth"
                 component={AuthScreen}
@@ -89,12 +92,27 @@ export default function App() {
               />
               <Stack.Screen
                 name="SignUp"
-                component={RegisterEmailScreen}
+                component={SignUpEmailScreen}
                 options={{ title: "Регистрация" }}
               />
               <Stack.Screen
                 name="SignUpCode"
-                component={RegisterCodeScreen}
+                component={SignUpCodeScreen}
+                options={{ title: "" }}
+              />
+              <Stack.Screen
+                name="SuccessCode"
+                component={SuccessCodeScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name="SignUpForm"
+                component={SignUpFormScreen}
+                options={{ title: "Регистрация" }}
+              />
+              <Stack.Screen
+                name="SignUpForm2"
+                component={SignUpForm2Screen}
                 options={{ title: "Регистрация" }}
               />
             </Stack.Group>
