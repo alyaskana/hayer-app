@@ -31,7 +31,9 @@ export const Button: FC<ButtonProps> = ({
                 pressed={pressed}
                 disabled={buttonProps.disabled}
               >
-                <SCaption_1 danger={danger}>{text}</SCaption_1>
+                <SCaption_1 disabled={buttonProps.disabled} danger={danger}>
+                  {text}
+                </SCaption_1>
               </SecondaryButton>
             )}
           </>
@@ -64,6 +66,11 @@ const SHeadline = styled(Headline)`
 `;
 
 const SCaption_1 = styled(Caption_1)`
-  color: ${(props) => (props.danger ? Colors.Accent.Red : Colors.Main.Primary)};
+  color: ${(props) =>
+    props.disabled
+      ? Colors.Main.Gray_2
+      : props.danger
+      ? Colors.Accent.Red
+      : Colors.Main.Primary};
   text-align: center;
 `;
