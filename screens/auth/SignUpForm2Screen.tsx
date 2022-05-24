@@ -6,6 +6,9 @@ import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useAuth } from "shared/hooks/useAuth";
 import { Text } from "shared/ui/Typography";
 import { Colors } from "constants/Colors";
+import { Modalize } from "react-native-modalize";
+import { useRef } from "react";
+import { Modal } from "shared/components/Modal/Modal";
 
 type FormInputs = {
   avatar?: string;
@@ -29,8 +32,19 @@ export const SignUpForm2Screen = ({ navigation }) => {
     navigation.navigate("SignUpForm2");
   };
 
+  const modalizeRef = useRef<Modalize>(null);
+
+  const onOpen = () => {
+    modalizeRef.current?.open();
+  };
+
   return (
     <SafeAreaView>
+      <Modal
+        modalRef={modalizeRef}
+        headerTitle="Выбери курс"
+        headerSubtitle="Отсчитывая от 1 курса бакалавриата"
+      />
       <ScrollView>
         <View style={{ paddingHorizontal: 8, paddingTop: 5 }}>
           <Form>
@@ -40,6 +54,9 @@ export const SignUpForm2Screen = ({ navigation }) => {
             </Text>
             <FieldSet>
               <Label title="Аватарка" />
+              <TouchableOpacity onPress={onOpen}>
+                <Text>Open the modal</Text>
+              </TouchableOpacity>
 
               {/* <Controller
                 control={control}

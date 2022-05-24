@@ -4,6 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import { Host } from "react-native-portalize";
 
 import { AuthProvider } from "shared/hooks/useAuth";
 import { useLoadedAssets } from "./hooks/useLoadedAssets";
@@ -40,85 +41,87 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <AuthProvider>
-        <SafeAreaProvider>
-          <Stack.Navigator screenOptions={headerConfig}>
-            {!hasLaunched && (
+      <Host>
+        <AuthProvider>
+          <SafeAreaProvider>
+            <Stack.Navigator screenOptions={headerConfig}>
+              {!hasLaunched && (
+                <Stack.Group>
+                  <Stack.Screen
+                    name="OnboardingStep1"
+                    component={Step1Screen}
+                    options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                    name="OnboardingStep2"
+                    component={Step2Screen}
+                    options={{ title: "" }}
+                  />
+                  <Stack.Screen
+                    name="OnboardingStep3"
+                    component={Step3Screen}
+                    options={{ title: "" }}
+                  />
+                </Stack.Group>
+              )}
               <Stack.Group>
                 <Stack.Screen
-                  name="OnboardingStep1"
-                  component={Step1Screen}
+                  name="Home"
+                  component={Home}
                   options={{ headerShown: false }}
                 />
                 <Stack.Screen
-                  name="OnboardingStep2"
-                  component={Step2Screen}
+                  name="AddPost"
+                  component={CreatePostScreen}
+                  options={{ title: "Создать объявление" }}
+                />
+                <Stack.Screen
+                  name="Post"
+                  component={PostScreen}
+                  options={{ title: "Объявление" }}
+                />
+                {/* </Stack.Group>
+              <Stack.Group> */}
+                <Stack.Screen
+                  name="Auth"
+                  component={AuthScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="Login"
+                  component={LoginScreen}
+                  options={{ title: "Вход" }}
+                />
+                <Stack.Screen
+                  name="SignUp"
+                  component={SignUpEmailScreen}
+                  options={{ title: "Регистрация" }}
+                />
+                <Stack.Screen
+                  name="SignUpCode"
+                  component={SignUpCodeScreen}
                   options={{ title: "" }}
                 />
                 <Stack.Screen
-                  name="OnboardingStep3"
-                  component={Step3Screen}
-                  options={{ title: "" }}
+                  name="SuccessCode"
+                  component={SuccessCodeScreen}
+                  options={{ headerShown: false }}
+                />
+                <Stack.Screen
+                  name="SignUpForm"
+                  component={SignUpFormScreen}
+                  options={{ title: "Регистрация" }}
+                />
+                <Stack.Screen
+                  name="SignUpForm2"
+                  component={SignUpForm2Screen}
+                  options={{ title: "Регистрация" }}
                 />
               </Stack.Group>
-            )}
-            <Stack.Group>
-              <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="AddPost"
-                component={CreatePostScreen}
-                options={{ title: "Создать объявление" }}
-              />
-              <Stack.Screen
-                name="Post"
-                component={PostScreen}
-                options={{ title: "Объявление" }}
-              />
-              {/* </Stack.Group>
-              <Stack.Group> */}
-              <Stack.Screen
-                name="Auth"
-                component={AuthScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="Login"
-                component={LoginScreen}
-                options={{ title: "Вход" }}
-              />
-              <Stack.Screen
-                name="SignUp"
-                component={SignUpEmailScreen}
-                options={{ title: "Регистрация" }}
-              />
-              <Stack.Screen
-                name="SignUpCode"
-                component={SignUpCodeScreen}
-                options={{ title: "" }}
-              />
-              <Stack.Screen
-                name="SuccessCode"
-                component={SuccessCodeScreen}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="SignUpForm"
-                component={SignUpFormScreen}
-                options={{ title: "Регистрация" }}
-              />
-              <Stack.Screen
-                name="SignUpForm2"
-                component={SignUpForm2Screen}
-                options={{ title: "Регистрация" }}
-              />
-            </Stack.Group>
-          </Stack.Navigator>
-        </SafeAreaProvider>
-      </AuthProvider>
+            </Stack.Navigator>
+          </SafeAreaProvider>
+        </AuthProvider>
+      </Host>
     </NavigationContainer>
   );
 }
