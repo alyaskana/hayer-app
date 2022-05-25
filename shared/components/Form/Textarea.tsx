@@ -4,15 +4,15 @@ import { Colors } from "constants/Colors";
 import styled from "styled-components";
 import { Caption_3 } from "shared/ui/Typography";
 
-export type InputProps = {
+export type TextareaProps = {
   hint?: string;
   error?: string;
 } & TextInputProps;
 
-export const Input: FC<InputProps> = ({ hint, error, ...inputProps }) => {
+export const Textarea: FC<TextareaProps> = ({ hint, error, ...inputProps }) => {
   return (
     <>
-      <InputField {...inputProps} />
+      <TextareaField multiline={true} {...inputProps} />
       {error ? (
         <ErrorMessage>{error}</ErrorMessage>
       ) : (
@@ -22,7 +22,7 @@ export const Input: FC<InputProps> = ({ hint, error, ...inputProps }) => {
   );
 };
 
-const InputField = styled.TextInput`
+const TextareaField = styled.TextInput`
   border-radius: 12px;
   background-color: ${Colors.Main.White};
   padding: 16px 12px;
@@ -30,6 +30,7 @@ const InputField = styled.TextInput`
   font-size: 15px;
   color: ${Colors.Main.Gray_3};
   width: 100%;
+  height: 136px;
   align-self: stretch;
   background-color: ${Colors.Main.White_gray};
   border: ${(props) =>

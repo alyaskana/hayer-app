@@ -1,24 +1,24 @@
 import { FC, MutableRefObject, ReactNode } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Portal } from "react-native-portalize";
-import { Modalize } from "react-native-modalize";
+import { Modalize, ModalizeProps } from "react-native-modalize";
 import { Colors } from "constants/Colors";
 import { Caption_2, Subtitle } from "shared/ui/Typography";
 
 type ModalProps = {
   modalRef: MutableRefObject<Modalize>;
-  content?: ReactNode;
   headerTitle?: string;
   headerSubtitle?: string;
   headerShown?: boolean;
-};
+} & ModalizeProps;
 
 export const Modal: FC<ModalProps> = ({
   modalRef,
-  content,
   headerSubtitle,
   headerTitle,
   headerShown = true,
+  children,
+  ...modalizeProps
 }) => {
   return (
     <Portal>
@@ -39,8 +39,9 @@ export const Modal: FC<ModalProps> = ({
             </View>
           )
         }
+        {...modalizeProps}
       >
-        {content && content}
+        {children}
       </Modalize>
     </Portal>
   );

@@ -1,7 +1,15 @@
 import { SafeAreaView, View, ScrollView, TouchableOpacity } from "react-native";
 
 import { Button } from "shared/components";
-import { FieldSet, Form, Input, Label } from "shared/components/Form";
+import {
+  FieldSet,
+  Form,
+  Input,
+  Label,
+  ListItemRadio,
+  Select,
+  Textarea,
+} from "shared/components/Form";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useAuth } from "shared/hooks/useAuth";
 import { Text } from "shared/ui/Typography";
@@ -9,6 +17,7 @@ import { Colors } from "constants/Colors";
 import { Modalize } from "react-native-modalize";
 import { useRef } from "react";
 import { Modal } from "shared/components/Modal/Modal";
+import { eduPrograms } from "mocks/eduPrograms";
 
 type FormInputs = {
   avatar?: string;
@@ -23,28 +32,73 @@ export const SignUpForm2Screen = ({ navigation }) => {
   const {
     control,
     handleSubmit,
+    setValue,
+    getValues,
     formState: { errors, isValid },
   } = useForm<FormInputs>({
     mode: "onBlur",
   });
+  const modalizeRefCourse = useRef<Modalize>(null);
+  const modalizeRefEdu = useRef<Modalize>(null);
 
   const onSubmit: SubmitHandler<FormInputs> = ({}) => {
     navigation.navigate("SignUpForm2");
   };
 
-  const modalizeRef = useRef<Modalize>(null);
-
-  const onOpen = () => {
-    modalizeRef.current?.open();
+  const onOpen = (ref) => {
+    ref.current?.open();
   };
+
+  const listItem = ({ item, field, ref, key }) => (
+    <TouchableOpacity
+      key={key}
+      onPress={() => {
+        setValue(field, item);
+        ref.current?.close();
+      }}
+    >
+      <ListItemRadio title={item} isSelected={getValues(field) == item} />
+    </TouchableOpacity>
+  );
 
   return (
     <SafeAreaView>
       <Modal
-        modalRef={modalizeRef}
+        modalRef={modalizeRefCourse}
         headerTitle="Выбери курс"
         headerSubtitle="Отсчитывая от 1 курса бакалавриата"
-      />
+        flatListProps={{
+          showsVerticalScrollIndicator: false,
+          data: ["1", "2", "3", "4", "5", "6", "7", "8"],
+          renderItem: ({ item, index }) =>
+            listItem({
+              item,
+              field: "course",
+              ref: modalizeRefCourse,
+              key: index,
+            }),
+          ItemSeparatorComponent: () => <View style={{ height: 8 }} />,
+          ListFooterComponent: <View style={{ height: 24 }} />,
+        }}
+      ></Modal>
+      <Modal
+        modalRef={modalizeRefEdu}
+        headerTitle="Выбери образовательную программу"
+        flatListProps={{
+          showsVerticalScrollIndicator: false,
+          data: eduPrograms.sort(),
+          renderItem: ({ item, index }) =>
+            listItem({
+              item,
+              field: "eduProgram",
+              ref: modalizeRefEdu,
+              key: index,
+            }),
+          ItemSeparatorComponent: () => <View style={{ height: 8 }} />,
+          ListFooterComponent: <View style={{ height: 24 }} />,
+        }}
+      ></Modal>
+
       <ScrollView>
         <View style={{ paddingHorizontal: 8, paddingTop: 5 }}>
           <Form>
@@ -54,34 +108,17 @@ export const SignUpForm2Screen = ({ navigation }) => {
             </Text>
             <FieldSet>
               <Label title="Аватарка" />
-              <TouchableOpacity onPress={onOpen}>
-                <Text>Open the modal</Text>
-              </TouchableOpacity>
-
-              {/* <Controller
-                control={control}
-                name="avatar"
-                render={({ field: { onChange, value, onBlur } }) => (
-                  <Input
-                  autoCorrect={false}
-                  value={value}
-                  onBlur={onBlur}
-                  onChangeText={onChange}
-                  error={errors?.firstName?.message}
-                  />
-                  )}
-                /> */}
             </FieldSet>
             <FieldSet>
               <Label title="Образовательная программа" />
               <Controller
                 control={control}
                 name="eduProgram"
-                render={({ field: { onChange, value, onBlur } }) => (
-                  <Input
+                render={({ field: { value } }) => (
+                  <Select
+                    onPress={() => onOpen(modalizeRefEdu)}
                     value={value}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
+                    placeholder="Выбери ОП"
                   />
                 )}
               />
@@ -91,11 +128,11 @@ export const SignUpForm2Screen = ({ navigation }) => {
               <Controller
                 control={control}
                 name="course"
-                render={({ field: { onChange, value, onBlur } }) => (
-                  <Input
+                render={({ field: { value } }) => (
+                  <Select
+                    onPress={() => onOpen(modalizeRefCourse)}
                     value={value}
-                    onBlur={onBlur}
-                    onChangeText={onChange}
+                    placeholder="Выбери курс"
                   />
                 )}
               />
@@ -134,7 +171,12 @@ export const SignUpForm2Screen = ({ navigation }) => {
               control={control}
               name="about"
               render={({ field: { onChange, value, onBlur } }) => (
-                <Input value={value} onBlur={onBlur} onChangeText={onChange} />
+                <Textarea
+                  value={value}
+                  onBlur={onBlur}
+                  onChangeText={onChange}
+                  placeholder="Расскажи пару слов о себе. Что умеешь, чем увлекаешься, что любишь?"
+                />
               )}
             />
           </Form>

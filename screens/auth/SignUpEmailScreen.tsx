@@ -18,7 +18,7 @@ export const SignUpEmailScreen = ({ navigation }) => {
   } = useForm<{ email: string }>({
     mode: "onBlur",
     defaultValues: {
-      email: "",
+      email: "test@edu.hse.ru",
     },
   });
 

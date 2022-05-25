@@ -54,25 +54,24 @@ export const FeedScreen = ({ navigation }) => {
           activeFilters={activeFilters}
           setActiveFilters={setActiveFilters}
         />
-        {posts.length > 0 ? (
-          <FlatList
-            data={posts}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-          />
-        ) : (
-          <View
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              marginTop: 250,
-            }}
-          >
-            <Headline>Нет постов.</Headline>
-            <Headline>Попробуйте расслабить фильтры.</Headline>
-          </View>
-        )}
+        <FlatList
+          data={posts}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          ListEmptyComponent={
+            <View
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: 250,
+              }}
+            >
+              <Headline>Нет постов.</Headline>
+              <Headline>Попробуйте расслабить фильтры.</Headline>
+            </View>
+          }
+        />
       </View>
     </SafeAreaView>
   );
