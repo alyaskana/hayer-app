@@ -1,9 +1,10 @@
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 import { View } from "react-native";
+import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useTimer } from "react-timer-hook";
 import { Form, Label, Input } from "shared/components/Form";
 import { Button } from "shared/components";
-import { useState } from "react";
 
 export const SignUpCodeScreen = ({
   route: {
@@ -22,9 +23,36 @@ export const SignUpCodeScreen = ({
     },
   });
 
-  const [counter, setCounter] = useState("1:00");
+  const [sendCodeActive, setSendCodeActive] = useState(false);
+  const TIMER = 60; // seconds
 
-  const onSubmit: SubmitHandler<{ code: string }> = () => {
+  const expiryTimestamp = new Date();
+  expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + TIMER);
+
+  const { seconds, minutes, restart } = useTimer({
+    expiryTimestamp,
+    onExpire: () => setSendCodeActive(true),
+  });
+
+  const SendCodeBtnText = () => {
+    const timer = ` (${minutes.toString().padStart(2, "0")}:${seconds
+      .toString()
+      .padStart(2, "0")})`;
+    if (sendCodeActive) {
+      return "Отправить код повторно";
+    } else {
+      return "Отправить код повторно" + timer;
+    }
+  };
+
+  const onSendCode = () => {
+    const time = new Date();
+    time.setSeconds(time.getSeconds() + TIMER);
+    restart(time);
+    setSendCodeActive(false);
+  };
+
+  const onNextButtonClick = () => {
     navigation.navigate("SuccessCode");
   };
 
@@ -39,7 +67,7 @@ export const SignUpCodeScreen = ({
             render={({ field: { onChange, value, onBlur } }) => (
               <Input
                 keyboardType="number-pad"
-                placeholder="••••"
+                // placeholder="••••••"
                 autoCapitalize="none"
                 autoCorrect={false}
                 value={value}
@@ -52,11 +80,19 @@ export const SignUpCodeScreen = ({
           />
         </Form>
         <Button
-          text={`Отправить код повторно (${counter})`}
+          text={SendCodeBtnText()}
           variant="secondary"
-          onPress={handleSubmit(onSubmit)}
+          onPress={onSendCode}
           style={{ marginTop: 20 }}
-          // disabled
+          disabled={!sendCodeActive}
+        />
+
+        {/* TODO: удалить потом */}
+        <Button
+          text={`Next`}
+          variant="primary"
+          onPress={onNextButtonClick}
+          style={{ marginTop: 20 }}
         />
       </View>
     </SafeAreaView>
