@@ -46,6 +46,10 @@ export const SignUpEmailScreen = ({ navigation }) => {
             name="email"
             rules={{
               required: "Это обязательное поле",
+              pattern: {
+                value: /^[\w-\.]+@edu.hse.ru$/,
+                message: "Кажется, это не вышкинская почта",
+              },
             }}
             render={({ field: { onChange, value, onBlur } }) => (
               <Input
@@ -55,7 +59,7 @@ export const SignUpEmailScreen = ({ navigation }) => {
                 autoCorrect={false}
                 value={value}
                 onBlur={onBlur}
-                onChangeText={(e) => onEmailChange(e)}
+                onChangeText={(e) => onChange(() => onEmailChange(e))}
                 hint="Отправим код для подтверждения почты. Присылать рекламу не будем"
                 error={errors?.email?.message}
               />
