@@ -8,6 +8,7 @@ import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Form, Label, Input } from "shared/components/Form";
 import { Button } from "shared/components";
+import { authFetcher } from "shared/api";
 
 export const SignUpEmailScreen = ({ navigation }) => {
   const {
@@ -23,7 +24,12 @@ export const SignUpEmailScreen = ({ navigation }) => {
   });
 
   const onSubmit: SubmitHandler<{ email: string }> = ({ email }) => {
-    navigation.navigate("SignUpCode", { email });
+    authFetcher
+      .signup(email)
+      .then(({ data }) =>
+        navigation.navigate("SignUpCode", { email, id: data.id })
+      )
+      .catch((error) => console.log("++++", error));
   };
 
   const onEmailChange = (value) => {

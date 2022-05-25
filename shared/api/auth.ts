@@ -13,15 +13,23 @@ class AuthFetcher extends API {
       },
     });
   }
-  signup<R = User>(email: string, password: string, link: string) {
+
+  signup<R = User>(email: string) {
     return super.post<R>({
       path: "signup",
       params: {
         user: {
           email,
-          password,
-          link,
         },
+      },
+    });
+  }
+
+  verifyEmail(id: number, code: string) {
+    return super.post<void>({
+      path: `users/${id}/verify_email`,
+      params: {
+        code,
       },
     });
   }

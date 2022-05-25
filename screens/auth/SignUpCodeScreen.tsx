@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { View } from "react-native";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useTimer } from "react-timer-hook";
 import { Form, Label, Input } from "shared/components/Form";
 import { Button } from "shared/components";
+import { authFetcher } from "shared/api";
 
 export const SignUpCodeScreen = ({
   route: {
-    params: { email },
+    params: { email, id },
   },
   navigation,
 }) => {
   const {
     control,
     handleSubmit,
+    watch,
+    setError,
     formState: { errors },
   } = useForm<{ code: string }>({
     mode: "onBlur",
@@ -25,6 +28,28 @@ export const SignUpCodeScreen = ({
 
   const [sendCodeActive, setSendCodeActive] = useState(false);
   const TIMER = 60; // seconds
+
+  const onSubmit: SubmitHandler<{ code?: string }> = (data) => {
+    authFetcher
+      .verifyEmail(id, data.code)
+      .then(() => navigation.navigate("SuccessCode"))
+      .catch((err) => {
+        setError("code", {
+          type: "value",
+          // message: err.response.data.error, // это текст ошибки с бэка
+          message: "Не тот :( Проверь все символы",
+        });
+      });
+  };
+
+  useEffect(() => {
+    const subscription = watch((data) => {
+      if (data.code.length == 6) {
+        handleSubmit(onSubmit(data));
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [handleSubmit, watch]);
 
   const expiryTimestamp = new Date();
   expiryTimestamp.setSeconds(expiryTimestamp.getSeconds() + TIMER);
@@ -51,6 +76,8 @@ export const SignUpCodeScreen = ({
     restart(time);
     setSendCodeActive(false);
   };
+
+  /* TODO: удалить потом */
 
   const onNextButtonClick = () => {
     navigation.navigate("SuccessCode");
