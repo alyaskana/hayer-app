@@ -15,6 +15,7 @@ export const SignUpEmailScreen = ({ navigation }) => {
     control,
     handleSubmit,
     setValue,
+    setError,
     formState: { errors },
   } = useForm<{ email: string }>({
     mode: "onBlur",
@@ -29,7 +30,13 @@ export const SignUpEmailScreen = ({ navigation }) => {
       .then(({ data }) =>
         navigation.navigate("SignUpCode", { email, id: data.id })
       )
-      .catch((error) => console.log("++++", error));
+      .catch((err) => {
+        setError("email", {
+          type: "value",
+          message: err.response.data.error, // это текст ошибки с бэка
+          // message: "Не тот :( Проверь все символы",
+        });
+      });
   };
 
   const onEmailChange = (value) => {

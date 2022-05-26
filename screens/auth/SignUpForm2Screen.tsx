@@ -1,4 +1,5 @@
 import { SafeAreaView, View, ScrollView, TouchableOpacity } from "react-native";
+import * as SecureStore from "expo-secure-store";
 
 import { Button } from "shared/components";
 import {
@@ -18,6 +19,7 @@ import { Modalize } from "react-native-modalize";
 import { useRef } from "react";
 import { Modal } from "shared/components/Modal/Modal";
 import { eduPrograms } from "mocks/eduPrograms";
+import { authFetcher } from "shared/api";
 
 type FormInputs = {
   avatar?: string;
@@ -28,7 +30,12 @@ type FormInputs = {
   about?: string;
 };
 
-export const SignUpForm2Screen = ({ navigation }) => {
+export const SignUpForm2Screen = ({
+  navigation,
+  route: {
+    params: { id },
+  },
+}) => {
   const {
     control,
     handleSubmit,
@@ -41,8 +48,12 @@ export const SignUpForm2Screen = ({ navigation }) => {
   const modalizeRefCourse = useRef<Modalize>(null);
   const modalizeRefEdu = useRef<Modalize>(null);
 
-  const onSubmit: SubmitHandler<FormInputs> = ({}) => {
-    navigation.navigate("SignUpForm2");
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    SecureStore.getItemAsync("token").then((res) => console.log("----", res));
+    authFetcher
+      .update(id, data)
+      .then(() => navigation.navigate("Home", { screen: "Feed" }))
+      .catch((err) => console.log(err.response.data));
   };
 
   const onOpen = (ref) => {

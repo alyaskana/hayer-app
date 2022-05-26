@@ -25,12 +25,26 @@ class AuthFetcher extends API {
     });
   }
 
-  verifyEmail(id: number, code: string) {
+  verifyEmail(id: number | string, code: string) {
     return super.post<void>({
       path: `users/${id}/verify_email`,
       params: {
         code,
       },
+    });
+  }
+
+  completeSignUp(id: number | string, data: Record<string, string>) {
+    return super.post<void>({
+      path: `users/${id}/complete_signup`,
+      params: { user: data },
+    });
+  }
+
+  update(id: number | string, data: Record<string, string>) {
+    return super.patch<void>({
+      path: `users/${id}`,
+      params: { user: data },
     });
   }
 

@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosError } from "axios";
-// import Cookies from "js-cookie";
+import * as SecureStore from "expo-secure-store";
 
 import { stringify } from "./utils/stringify";
 
@@ -7,21 +7,22 @@ const fetcher = axios.create({
   baseURL: "http://localhost:3001/api",
 });
 
-// fetcher.interceptors.request.use(function (config) {
-//   const token = Cookies.get("token");
-//   if (token) {
-//     return { ...config, headers: { ...config.headers, Authorization: token } };
-//   }
-//   return config;
-// });
+fetcher.interceptors.request.use(async (config) => {
+  const token = await SecureStore.getItemAsync("token");
 
-fetcher.interceptors.response.use(undefined, async (error: AxiosError) => {
-  if (error.response?.status == 401) {
-    window.location.href = "/auth/login";
+  if (token) {
+    return { ...config, headers: { ...config.headers, Authorization: token } };
   }
-
-  return Promise.reject(error);
+  return config;
 });
+
+// fetcher.interceptors.response.use(undefined, async (error: AxiosError) => {
+//   if (error.response?.status == 401) {
+//     window.location.href = "/auth/login";
+//   }
+
+//   return Promise.reject(error);
+// });
 
 type TGetParams = {
   path: string;

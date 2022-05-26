@@ -3,15 +3,21 @@ import { Button } from "shared/components";
 import { FieldSet, Form, Input, Label } from "shared/components/Form";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useAuth } from "shared/hooks/useAuth";
+import { authFetcher } from "shared/api";
 
 type FormInputs = {
-  firstName: string;
-  lastName: string;
+  first_name: string;
+  last_name: string;
   telegram: string;
   password: string;
 };
 
-export const SignUpFormScreen = ({ navigation }) => {
+export const SignUpFormScreen = ({
+  route: {
+    params: { id },
+  },
+  navigation,
+}) => {
   const {
     control,
     handleSubmit,
@@ -19,15 +25,20 @@ export const SignUpFormScreen = ({ navigation }) => {
   } = useForm<FormInputs>({
     mode: "onBlur",
     defaultValues: {
-      firstName: "Test",
-      lastName: "User",
+      first_name: "Test",
+      last_name: "User",
       telegram: "test",
       password: "123456",
     },
   });
+  const { signUp } = useAuth();
 
-  const onSubmit: SubmitHandler<FormInputs> = ({}) => {
-    navigation.navigate("SignUpForm2");
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    console.log("+++++", data);
+
+    signUp(id, data)
+      .then(() => navigation.navigate("SignUpForm2", { id }))
+      .catch((err) => console.log(err.response.data));
   };
 
   return (
@@ -38,7 +49,7 @@ export const SignUpFormScreen = ({ navigation }) => {
             <Label title="Имя" />
             <Controller
               control={control}
-              name="firstName"
+              name="first_name"
               rules={{
                 required: "Это обязательное поле",
               }}
@@ -48,7 +59,7 @@ export const SignUpFormScreen = ({ navigation }) => {
                   value={value}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  error={errors?.firstName?.message}
+                  error={errors?.first_name?.message}
                 />
               )}
             />
@@ -57,7 +68,7 @@ export const SignUpFormScreen = ({ navigation }) => {
             <Label title="Фамилия" />
             <Controller
               control={control}
-              name="lastName"
+              name="last_name"
               rules={{
                 required: "Это обязательное поле",
               }}
@@ -67,7 +78,7 @@ export const SignUpFormScreen = ({ navigation }) => {
                   value={value}
                   onBlur={onBlur}
                   onChangeText={onChange}
-                  error={errors?.firstName?.message}
+                  error={errors?.first_name?.message}
                 />
               )}
             />

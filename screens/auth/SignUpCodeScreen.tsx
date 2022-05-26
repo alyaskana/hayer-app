@@ -32,7 +32,7 @@ export const SignUpCodeScreen = ({
   const onSubmit: SubmitHandler<{ code?: string }> = (data) => {
     authFetcher
       .verifyEmail(id, data.code)
-      .then(() => navigation.navigate("SuccessCode"))
+      .then(() => navigation.navigate("SuccessCode", { id }))
       .catch((err) => {
         setError("code", {
           type: "value",

@@ -9,7 +9,12 @@ import {
 import { Button } from "shared/components";
 import { Caption_1, Title } from "shared/ui/Typography";
 
-export const SuccessCodeScreen = ({ navigation }) => {
+export const SuccessCodeScreen = ({
+  navigation,
+  route: {
+    params: { id },
+  },
+}) => {
   return (
     <SafeAreaView>
       <View style={s.wrap}>
@@ -25,7 +30,7 @@ export const SuccessCodeScreen = ({ navigation }) => {
           <Button
             text="Продолжить"
             variant="primary"
-            onPress={() => navigation.navigate("SignUpForm")}
+            onPress={() => navigation.navigate("SignUpForm", { id })}
           />
         </View>
       </View>

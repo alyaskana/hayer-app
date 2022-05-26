@@ -7,6 +7,7 @@ type AuthContext = {
   token: string | null;
   user: User | null;
   login: (email: string, password: string) => Promise<void>;
+  signUp: (id: string | number, data: Record<string, string>) => Promise<void>;
 };
 
 const authContext = createContext<AuthContext>(null);
@@ -37,6 +38,7 @@ const useAuthProvider = () => {
         .login(email, password)
         .then((response) => {
           const token = response.headers.authorization;
+          SecureStore.setItemAsync(TOKEN_KEY, token);
           setToken(token);
           setUser(response.data);
           resolve(response.data);
@@ -45,5 +47,22 @@ const useAuthProvider = () => {
     });
   };
 
-  return { user, token, login };
+  const signUp = (id: string, data: Record<string, string>) => {
+    return new Promise((resolve, reject) => {
+      authFetcher
+        .completeSignUp(id, data)
+        .then((response) => {
+          console.log("+++++++++++111", response.headers.authorization);
+
+          const token = response.headers.authorization;
+          SecureStore.setItemAsync(TOKEN_KEY, token);
+          setToken(token);
+          setUser(response.data);
+          resolve(response.data);
+        })
+        .catch((e) => reject(e));
+    });
+  };
+
+  return { user, token, login, signUp };
 };
